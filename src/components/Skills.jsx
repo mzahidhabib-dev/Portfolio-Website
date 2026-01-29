@@ -8,7 +8,7 @@ export default function Skills({ darkMode }) {
 
     const skills = [
         {
-            name: 'Laravel', icon: laravel, level: 95,
+            name: 'Javascript', icon: laravel, level: 95,
             color: 'from-orange-500 to-amber-500'
         },
         {
@@ -20,11 +20,11 @@ export default function Skills({ darkMode }) {
             color: 'from-teal-500 to-cyan-500'
         },
         {
-            name: 'Tailwind CSS', icon: tailwind, level: 75,
+            name: 'Node js', icon: tailwind, level: 75,
             color: 'from-teal-500 to-cyan-500'
         },
         {
-            name: 'Tailwind CSS', icon: tailwind, level: 75,
+            name: 'Typescript', icon: tailwind, level: 75,
             color: 'from-teal-500 to-cyan-500'
         },
         {

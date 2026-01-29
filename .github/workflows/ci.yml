@@ -1,4 +1,4 @@
-name: CI - React Vite Build
+name: CI/CD - React Vite Build & Deploy
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build Job                  # ✅ ADD THIS
+    name: Build Job
     runs-on: ubuntu-latest
 
     steps:
@@ -21,12 +21,22 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Lint project
         run: npm run lint
 
       - name: Build project
         run: npm run build
+        env:
+          VITE_APP_NAME: ${{ secrets.VITE_APP_NAME }}
+
+      # ✅ Vercel deployment step
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v23
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'   # deploy to production
         env:
           VITE_APP_NAME: ${{ secrets.VITE_APP_NAME }}
