@@ -1,116 +1,153 @@
-import about from '../assets/about.jpg'
+import about from '../assets/about.png'
 
-export default function About({ darkMode }) {
+export default function About() {
     return (
-        <section id='about' className={`min-h-screen overflow-hidden flex
-   items-center justify-center px-4 sm:px-6 `}>
-            <div className='max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2
-            gap-8 sm:gap-12 items-center'>
-                <figure
-                    data-aos='fade-up'
-                    data-aos-delay='300'
-                    className='flex flex-wrap justify-center gap-4 relative
-                order-2 lg:order-1'>
-                    <div className='relative w-75 h-75 lg:w-96
-                     lg:h-96'>
-                        {/* IMAGE */}
-                        <div className='absolute -inset-4 lg:-inset-20
-                       bg-linear-to-l from-[#f97316] via-[#fb923c] 
-                       to-[#f59e0b] rotate-12 star-shape z-0'
-                            dta-aos='zoom-in'
-                            data-aos-delay='600'>
+        <section
+            id="about"
+            className="min-h-screen overflow-hidden flex items-center justify-center
+                       px-4 sm:px-6
+                       bg-[#F8FAFC] dark:bg-[#0F172A]"
+        >
+            <div
+                className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2
+                           gap-8 sm:gap-12 items-center"
+            >
+                {/* IMAGE SIDE */}
+               <figure className="flex justify-center relative order-2 lg:order-1" data-aos="fade-up" data-aos-delay="300">
+  <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-96 lg:h-96">
+    
+    {/* Star */}
+    <div className="absolute -inset-6 md:-inset-12 lg:-inset-12
+                    bg-[#2563EB]/10 dark:bg-[#60A5FA]/10
+                    rotate-6 star-shape z-0
+                    transition-transform duration-700 ease-in-out
+                    hover:rotate-12"
+         data-aos="zoom-in"
+         data-aos-delay="450"
+    />
 
-                        </div>
-                        <img src={about} alt="About Image"
-                            className='absolute inset-0 w-full h-full
-                       object-cover z-10 transition-all duration-300'
-                            dta-aos='zoom-in'
-                            data-aos-delay='400' />
-                    </div>
+    {/* Image Container */}
+    <div className="relative overflow-hidden w-full h-full rounded-xl">
+      <img
+        src={about}
+        alt="About"
+        className="w-full h-full object-cover
+                   transform hover:scale-105
+                   transition-transform duration-500"
+        data-aos="zoom-in"
+        data-aos-delay="500"
+      />
+    </div>
 
-                </figure>
+  </div>
+</figure>
+
+
+                {/* CONTENT SIDE */}
                 <article
-                    dta-aos='fade-left'
-                    data-aos-delay='300'
-                    className='text-center lg:text-left relative order-1
-                lg:order-2'>
-                    <header>
-                        <h1
-                            className='text-3xl sm:text-4xl lg:text-5xl
-                        xl:text-6xl font-bold mb-4 sm:m-6 text-transparent
-                        bg-linear-to-r from-orange-400 to-orange-600
-                        bg-clip-text'
-                            data-aos='fade-up'
-                            data-aos-delay='400'>
+                    data-aos="fade-left"
+                    data-aos-delay="300"
+                    className="text-center lg:text-left relative
+                               order-1 lg:order-2"
+                >
+                    <header className="mb-4 sm:mb-6">
+                        <h2
+                            className="text-3xl sm:text-4xl lg:text-5xl
+                                       font-bold
+                                       text-[#0F172A] dark:text-[#E5E7EB]"
+                            data-aos="fade-up"
+                            data-aos-delay="400"
+                        >
                             About Me
-                        </h1>
+                        </h2>
                     </header>
-                    <p className={`text-sm sm:text-base lg:text-lg
-                        xl:text-xl mb-6 sm:mb-8 leading-relaxed
-                        bg-linear-to-r from-orange-900/10 to-orange-900/5
-                        p-4 sm:p-6 rounded-xl sm:rounded-2xl
-                        backdrop-blur-sm
-                        ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}
-                        data-aos='fade-up'
-                        data-aos-delay='500' >
-                        Lorem ipsum dolor, sit amet consectetur
-                        adipisicing elit. Aspernatur sequi
-                        laborum a pariatur ullam ratione est
-                        officia, odio excepturi provident
-                        dolor quasi error nihil impedit
-                        adipisci. Doloribus sequi perspiciatis
-                        magni!</p>
-                    <div className='flex flex-wrap justify-center lg:justify-start
-                         gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8'>
 
-                        {/* EDUCATION */}
+                    <p
+                        className="text-sm sm:text-base lg:text-lg
+                                   leading-relaxed
+                                   mb-6 sm:mb-8
+                                   text-[#475569] dark:text-[#CBD5F5]"
+                        data-aos="fade-up"
+                        data-aos-delay="500"
+                    >
+                       I’m a full-stack developer focused on building reliable, performance-driven 
+                       web applications with clean architecture and long-term maintainability in 
+                       mind. I care deeply about code quality, thoughtful UI decisions, and creating
+                        user experiences that feel intuitive rather than forced. I enjoy working 
+                        across the stack, turning complex requirements into scalable, 
+                        well-structured solutions.
+                    </p>
 
+                    {/* STATS */}
+                    <div
+                        className="flex flex-wrap justify-center lg:justify-start
+                                   gap-6 sm:gap-8 mb-6 sm:mb-8"
+                    >
                         <div
-                            className='text-center'
-                            data-aos='zoom-in'
-                            data-aos-delay='600'>
-                            <div className='text-2xl sm:text-3xl
-                        lg:text-4xl font-bold text-orange-400'>5+</div>
-
-                            <div className={`text-xs sm:text-sm
-                        lg:text-base ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Education</div>
-                        </div>
-                        {/* YEARS OF EXPERIENCE */}
-                        <div
-                            className='text-center'
-                            data-aos='zoom-in'
-                            data-aos-delay='650'>
-                            <div className='text-2xl sm:text-3xl
-                        lg:text-4xl font-bold text-orange-400'>3+</div>
-
-                            <div className={`text-xs sm:text-sm
-                        lg:text-base ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Years Experience</div>
-                        </div>
-
-                        {/* PROJECTS */}
-
-                        <div
-                            className='text-center'
-                            data-aos='zoom-in'
-                            data-aos-delay='700'>
-                            <div className='text-2xl sm:text-3xl
-                        lg:text-4xl font-bold text-orange-400'>30+</div>
-
-                            <div className={`text-xs sm:text-sm
-                        lg:text-base ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Projects Completed
+                            className="text-center"
+                            data-aos="zoom-in"
+                            data-aos-delay="600"
+                        >
+                            <div className="text-2xl sm:text-3xl lg:text-4xl
+                                            font-bold
+                                            text-[#2563EB] dark:text-[#60A5FA]">
+                                5+
+                            </div>
+                            <div className="text-xs sm:text-sm lg:text-base
+                                            text-[#64748B] dark:text-[#94A3B8]">
+                                Education
                             </div>
                         </div>
 
+                        <div
+                            className="text-center"
+                            data-aos="zoom-in"
+                            data-aos-delay="650"
+                        >
+                            <div className="text-2xl sm:text-3xl lg:text-4xl
+                                            font-bold
+                                            text-[#2563EB] dark:text-[#60A5FA]">
+                                3+
+                            </div>
+                            <div className="text-xs sm:text-sm lg:text-base
+                                            text-[#64748B] dark:text-[#94A3B8]">
+                                Years Experience
+                            </div>
+                        </div>
 
+                        <div
+                            className="text-center"
+                            data-aos="zoom-in"
+                            data-aos-delay="700"
+                        >
+                            <div className="text-2xl sm:text-3xl lg:text-4xl
+                                            font-bold
+                                            text-[#2563EB] dark:text-[#60A5FA]">
+                                10+
+                            </div>
+                            <div className="text-xs sm:text-sm lg:text-base
+                                            text-[#64748B] dark:text-[#94A3B8]">
+                                Projects Completed
+                            </div>
+                        </div>
                     </div>
-                    <button className={`w-full sm:w-auto
-                                inline-flex items-center justify-center border-2 border-orange-500 
-                                py-2 px-4 sm:px-6 hover:shadow-[0_0_40px_rgb(255,165,0,0.7)]
-                                rounded-full text-base sm:text-lg font-semibold transition-all
-                                duration-300 transform
-                                ${darkMode ? 'text-white bg-orange-500/10' : 'text-gray-800 bg-white/90'}`}
-                                data-aos='fade-up'
-                            data-aos-delay='800'>
+
+                    {/* CTA */}
+                    <button
+                         className="w-full sm:w-auto inline-flex items-center
+             justify-center
+             px-6 py-3
+             rounded-full
+             font-semibold text-base sm:text-lg
+             bg-[#2563EB] dark:bg-[#60A5FA]
+             text-white dark:text-[#020617]
+             transition-all duration-300
+             hover:translate-y-[-1px]
+             hover:shadow-lg
+             mb-10 sm:mb-12 lg:mb-0"
+                        data-aos="fade-up"
+                        data-aos-delay="800"
+                    >
                         Learn More
                     </button>
                 </article>
@@ -118,3 +155,129 @@ export default function About({ darkMode }) {
         </section>
     )
 }
+
+
+
+
+// import about from '../assets/about.png'
+
+// export default function About({ darkMode }) {
+//     return (
+//         <section id='about' className={`min-h-screen overflow-hidden flex
+//    items-center justify-center px-4 sm:px-6 `}>
+//             <div className='max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2
+//             gap-8 sm:gap-12 items-center'>
+//                 <figure
+//                     data-aos='fade-up'
+//                     data-aos-delay='300'
+//                     className='flex flex-wrap justify-center gap-4 relative
+//                 order-2 lg:order-1'>
+//                     <div className='relative w-75 h-75 lg:w-96
+//                      lg:h-96'>
+
+//                         {/* IMAGE */}
+                        
+//                         <div className='absolute -inset-4 lg:-inset-20
+//                        bg-linear-to-l from-[#f97316] via-[#fb923c] 
+//                        to-[#f59e0b] rotate-12 star-shape z-0'
+//                             dta-aos='zoom-in'
+//                             data-aos-delay='600'>
+
+//                         </div>
+//                         <img src={about} alt="About Image"
+//                             className='absolute inset-0 w-full h-full
+//                        object-cover z-10 transition-all duration-300'
+//                             dta-aos='zoom-in'
+//                             data-aos-delay='400' />
+//                     </div>
+
+//                 </figure>
+//                 <article
+//                     dta-aos='fade-left'
+//                     data-aos-delay='300'
+//                     className='text-center lg:text-left relative order-1
+//                 lg:order-2'>
+//                     <header>
+//                         <h1
+//                             className='text-3xl sm:text-4xl lg:text-5xl
+//                         xl:text-6xl font-bold mb-4 sm:m-6 text-transparent
+//                         bg-linear-to-r from-orange-400 to-orange-600
+//                         bg-clip-text'
+//                             data-aos='fade-up'
+//                             data-aos-delay='400'>
+//                             About Me
+//                         </h1>
+//                     </header>
+//                     <p className={`text-sm sm:text-base lg:text-lg
+//                         xl:text-xl mb-6 sm:mb-8 leading-relaxed
+//                         bg-linear-to-r from-orange-900/10 to-orange-900/5
+//                         p-4 sm:p-6 rounded-xl sm:rounded-2xl
+//                         backdrop-blur-sm
+//                         ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}
+//                         data-aos='fade-up'
+//                         data-aos-delay='500' >
+//                         Lorem ipsum dolor, sit amet consectetur
+//                         adipisicing elit. Aspernatur sequi
+//                         laborum a pariatur ullam ratione est
+//                         officia, odio excepturi provident
+//                         dolor quasi error nihil impedit
+//                         adipisci. Doloribus sequi perspiciatis
+//                         magni!</p>
+//                     <div className='flex flex-wrap justify-center lg:justify-start
+//                          gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8'>
+
+//                         {/* EDUCATION */}
+
+//                         <div
+//                             className='text-center'
+//                             data-aos='zoom-in'
+//                             data-aos-delay='600'>
+//                             <div className='text-2xl sm:text-3xl
+//                         lg:text-4xl font-bold text-orange-400'>5+</div>
+
+//                             <div className={`text-xs sm:text-sm
+//                         lg:text-base ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Education</div>
+//                         </div>
+//                         {/* YEARS OF EXPERIENCE */}
+//                         <div
+//                             className='text-center'
+//                             data-aos='zoom-in'
+//                             data-aos-delay='650'>
+//                             <div className='text-2xl sm:text-3xl
+//                         lg:text-4xl font-bold text-orange-400'>3+</div>
+
+//                             <div className={`text-xs sm:text-sm
+//                         lg:text-base ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Years Experience</div>
+//                         </div>
+
+//                         {/* PROJECTS */}
+
+//                         <div
+//                             className='text-center'
+//                             data-aos='zoom-in'
+//                             data-aos-delay='700'>
+//                             <div className='text-2xl sm:text-3xl
+//                         lg:text-4xl font-bold text-orange-400'>30+</div>
+
+//                             <div className={`text-xs sm:text-sm
+//                         lg:text-base ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Projects Completed
+//                             </div>
+//                         </div>
+
+
+//                     </div>
+//                     <button className={`w-full sm:w-auto
+//                                 inline-flex items-center justify-center border-2 border-orange-500 
+//                                 py-2 px-4 sm:px-6 hover:shadow-[0_0_40px_rgb(255,165,0,0.7)]
+//                                 rounded-full text-base sm:text-lg font-semibold transition-all
+//                                 duration-300 transform
+//                                 ${darkMode ? 'text-white bg-orange-500/10' : 'text-gray-800 bg-white/90'}`}
+//                         data-aos='fade-up'
+//                         data-aos-delay='800'>
+//                         Learn More
+//                     </button>
+//                 </article>
+//             </div>
+//         </section>
+//     )
+// }
