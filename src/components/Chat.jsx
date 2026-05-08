@@ -3,28 +3,32 @@ import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Send, X, Minimize2, Maximize2 } from 'lucide-react';
 import { CHAT_CONFIG } from '../config/chatConfig';
 
-/* global setTimeout, clearTimeout, fetch */
+/* global setTimeout, clearTimeout, fetch, console, performance, TextDecoder */
 
-/**
- * Chat Component - AI Assistant for Portfolio
- *
- * Features:
- * - Fixed position chat toggle in bottom right corner
- * - Toast notification on page load announcing new feature
- * - Real-time chat with AI assistant
- * - Minimizable chat window
- * - Professional UI matching portfolio theme
- *
- * Backend Integration:
- * - Sends POST requests to n8n webhook
- * - Request format: { "email": "mohammadzahidhabib786@gmail.com", "message": "user message" }
- * - Expected response: { "status": "success", "reply": "AI response" }
- *
- * To configure:
- * 1. Replace 'https://your-n8n-webhook-url.com/webhook/chat' with your actual n8n webhook URL
- * 2. Ensure your NestJS backend accepts the request format above
- * 3. Make sure CORS is configured to allow requests from your domain
- */
+const CHAT_LOG_PREFIX = '[Portfolio Chat]';
+
+const logChat = (step, details = {}) => {
+  console.log(CHAT_LOG_PREFIX, step, {
+    at: new Date().toISOString(),
+    ...details
+  });
+};
+
+const warnChat = (step, details = {}) => {
+  console.warn(CHAT_LOG_PREFIX, step, {
+    at: new Date().toISOString(),
+    ...details
+  });
+};
+
+const errorChat = (step, details = {}) => {
+  console.error(CHAT_LOG_PREFIX, step, {
+    at: new Date().toISOString(),
+    ...details
+  });
+};
+
+const getElapsedMs = (startTime) => Math.round(performance.now() - startTime);
 
 export default function Chat() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,81 +45,446 @@ export default function Chat() {
   const [isLoading, setIsLoading] = useState(false);
   const [showToast, setShowToast] = useState(true);
   const messagesEndRef = useRef(null);
+  const renderCountRef = useRef(0);
+
+  renderCountRef.current += 1;
+  logChat('render', {
+    renderCount: renderCountRef.current,
+    isOpen,
+    isMinimized,
+    isLoading,
+    showToast,
+    messageCount: messages.length,
+    inputLength: inputMessage.length
+  });
+
+  useEffect(() => {
+    logChat('mounted', {
+      apiBaseUrl: CHAT_CONFIG.API_BASE_URL,
+      askUrl: CHAT_CONFIG.ASK_URL,
+      streamUrl: CHAT_CONFIG.STREAM_URL,
+      hasDefaultEmail: Boolean(CHAT_CONFIG.DEFAULT_EMAIL)
+    });
+
+    return () => {
+      logChat('unmounted');
+    };
+  }, []);
 
   // Auto-scroll to bottom when new messages arrive
   const scrollToBottom = () => {
+    logChat('scroll requested', {
+      hasMessagesEndRef: Boolean(messagesEndRef.current),
+      messageCount: messages.length
+    });
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
+    logChat('messages changed', {
+      messageCount: messages.length,
+      lastMessageSender: messages[messages.length - 1]?.sender,
+      lastMessageLength: messages[messages.length - 1]?.text?.length || 0
+    });
     scrollToBottom();
   }, [messages]);
 
+  useEffect(() => {
+    logChat('chat open state changed', { isOpen });
+  }, [isOpen]);
+
+  useEffect(() => {
+    logChat('chat minimized state changed', { isMinimized });
+  }, [isMinimized]);
+
+  useEffect(() => {
+    logChat('loading state changed', { isLoading });
+  }, [isLoading]);
+
   // Hide toast after 5 seconds
   useEffect(() => {
+    logChat('toast shown; hide timer started', { hideAfterMs: 5000 });
     const timer = setTimeout(() => {
+      logChat('toast hide timer fired');
       setShowToast(false);
     }, 5000);
-    return () => clearTimeout(timer);
+    return () => {
+      logChat('toast hide timer cleared');
+      clearTimeout(timer);
+    };
   }, []);
 
   const sendMessage = async () => {
-    if (!inputMessage.trim() || isLoading) return;
+    const submitStart = performance.now();
+    const trimmedMessage = inputMessage.trim();
 
+    logChat('send requested', {
+      inputLength: inputMessage.length,
+      trimmedLength: trimmedMessage.length,
+      isLoading
+    });
+
+    if (!trimmedMessage || isLoading) {
+      warnChat('send blocked', {
+        reason: !trimmedMessage ? 'empty message' : 'request already loading',
+        elapsedMs: getElapsedMs(submitStart)
+      });
+      return;
+    }
+
+    const messageToSend = inputMessage;
     const userMessage = {
       id: messages.length + 1,
-      text: inputMessage,
+      text: messageToSend,
       sender: 'user',
       timestamp: new Date()
     };
 
+    logChat('user message queued', {
+      messageId: userMessage.id,
+      messageLength: messageToSend.length
+    });
     setMessages(prev => [...prev, userMessage]);
     setInputMessage('');
     setIsLoading(true);
 
     try {
-      const response = await fetch(CHAT_CONFIG.WEBHOOK_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: CHAT_CONFIG.DEFAULT_EMAIL,
-          message: inputMessage
-        })
+      logChat('stream attempt starting');
+      const streamResult = await sendMessageWithStream(messageToSend);
+      logChat('stream attempt finished', {
+        ok: streamResult.ok,
+        elapsedMs: getElapsedMs(submitStart),
+        tokenCount: streamResult.tokenCount,
+        streamedTextLength: streamResult.streamedTextLength,
+        chunkCount: streamResult.chunkCount,
+        firstTokenMs: streamResult.firstTokenMs
       });
 
-      const data = await response.json();
-
-      if (data.status === 'success') {
-        const botMessage = {
-          id: messages.length + 2,
-          text: data.reply,
-          sender: 'bot',
-          timestamp: new Date()
-        };
-        setMessages(prev => [...prev, botMessage]);
-      } else {
-        throw new Error('Failed to get response');
+      if (!streamResult.ok) {
+        warnChat('stream returned no usable content; fallback starting');
+        await sendMessageWithoutStream(messageToSend);
       }
-    } catch (_error) {
-      const errorMessage = {
-        id: messages.length + 2,
-        text: "Sorry, I'm having trouble connecting right now. Please try again later or contact mohammadzahidhabib786@gmail.com directly.",
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, errorMessage]);
+    } catch (error) {
+      errorChat('send failed', {
+        status: error?.status,
+        message: error?.message,
+        elapsedMs: getElapsedMs(submitStart)
+      });
+      const errorText = getErrorText(error);
+      pushBotMessage(errorText);
     } finally {
+      logChat('send finished', {
+        elapsedMs: getElapsedMs(submitStart)
+      });
       setIsLoading(false);
     }
   };
 
+  const pushBotMessage = (text) => {
+    const botMessage = {
+      id: Date.now(),
+      text,
+      sender: 'bot',
+      timestamp: new Date()
+    };
+    logChat('bot message queued', {
+      messageId: botMessage.id,
+      textLength: text.length
+    });
+    setMessages(prev => [...prev, botMessage]);
+  };
+
+  const getApiUrl = (path) => {
+    const url = `${CHAT_CONFIG.API_BASE_URL}${path}`;
+    logChat('api url built', { path, url });
+    return url;
+  };
+
+  const getErrorText = (error) => {
+    if (error?.status === 429) {
+      warnChat('rate limit error text selected', { status: error.status });
+      return 'Too many requests right now. Please wait 1 minute and try again.';
+    }
+    warnChat('generic error text selected', {
+      status: error?.status,
+      message: error?.message
+    });
+    return "Sorry, I'm having trouble connecting right now. Please try again later or contact mohammadzahidhabib786@gmail.com directly.";
+  };
+
+  const sendMessageWithStream = async (message) => {
+    const streamStart = performance.now();
+    const streamUrl = getApiUrl(CHAT_CONFIG.STREAM_URL);
+
+    logChat('stream request sending', {
+      url: streamUrl,
+      method: 'POST',
+      messageLength: message.length,
+      hasEmail: Boolean(CHAT_CONFIG.DEFAULT_EMAIL)
+    });
+
+    const response = await fetch(streamUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: CHAT_CONFIG.DEFAULT_EMAIL,
+        message
+      })
+    });
+
+    logChat('stream response received', {
+      status: response.status,
+      ok: response.ok,
+      elapsedMs: getElapsedMs(streamStart),
+      hasBody: Boolean(response.body),
+      contentType: response.headers.get('content-type')
+    });
+
+    if (!response.ok) {
+      const error = new Error('Streaming request failed');
+      error.status = response.status;
+      throw error;
+    }
+
+    if (!response.body) {
+      warnChat('stream response has no body', {
+        elapsedMs: getElapsedMs(streamStart)
+      });
+      return { ok: false };
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+
+    let buffer = '';
+    let botMessageId = null;
+    let streamedText = '';
+    let chunkCount = 0;
+    let tokenCount = 0;
+    let firstTokenMs = null;
+
+    const appendToken = (token) => {
+      if (!botMessageId) {
+        botMessageId = Date.now();
+        logChat('first stream token rendered', {
+          botMessageId,
+          tokenLength: token.length,
+          firstTokenMs
+        });
+        setMessages(prev => [
+          ...prev,
+          { id: botMessageId, text: token, sender: 'bot', timestamp: new Date() }
+        ]);
+        return;
+      }
+
+      logChat('stream token appended to existing bot message', {
+        botMessageId,
+        tokenLength: token.length,
+        streamedTextLength: streamedText.length
+      });
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === botMessageId ? { ...msg, text: msg.text + token } : msg
+        )
+      );
+    };
+
+    let doneReceived = false;
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) {
+        logChat('stream reader done', {
+          elapsedMs: getElapsedMs(streamStart),
+          chunkCount,
+          tokenCount,
+          streamedTextLength: streamedText.length,
+          doneReceived,
+          remainingBufferLength: buffer.length
+        });
+        break;
+      }
+
+      chunkCount += 1;
+      buffer += decoder.decode(value, { stream: true });
+      logChat('stream raw chunk received', {
+        chunkCount,
+        byteLength: value?.byteLength || 0,
+        bufferLength: buffer.length,
+        elapsedMs: getElapsedMs(streamStart)
+      });
+      const chunks = buffer.split('\n\n');
+      buffer = chunks.pop() || '';
+
+      for (const chunk of chunks) {
+        const lines = chunk.split('\n');
+        let eventName = 'message';
+        let payload = '';
+
+        for (const line of lines) {
+          if (line.startsWith('event:')) {
+            eventName = line.replace('event:', '').trim();
+          } else if (line.startsWith('data:')) {
+            payload += line.replace('data:', '').trim();
+          }
+        }
+
+        logChat('stream event parsed', {
+          eventName,
+          payloadLength: payload.length,
+          chunkLength: chunk.length
+        });
+
+        if (!payload) {
+          warnChat('stream event skipped because payload is empty', { eventName });
+          continue;
+        }
+
+        const parsed = JSON.parse(payload);
+        if (eventName === 'done') {
+          doneReceived = true;
+          logChat('stream done event received', {
+            elapsedMs: getElapsedMs(streamStart),
+            hasReply: Boolean(parsed?.reply),
+            streamedTextLength: streamedText.length
+          });
+          if (!streamedText && parsed?.reply) {
+            firstTokenMs = firstTokenMs ?? getElapsedMs(streamStart);
+            appendToken(parsed.reply);
+          }
+          continue;
+        }
+
+        if (parsed?.token) {
+          tokenCount += 1;
+          firstTokenMs = firstTokenMs ?? getElapsedMs(streamStart);
+          streamedText += parsed.token;
+          logChat('stream token received', {
+            tokenCount,
+            tokenLength: parsed.token.length,
+            streamedTextLength: streamedText.length,
+            elapsedMs: getElapsedMs(streamStart),
+            firstTokenMs
+          });
+          appendToken(parsed.token);
+        } else {
+          warnChat('stream event had no token', {
+            eventName,
+            parsedKeys: Object.keys(parsed || {})
+          });
+        }
+      }
+    }
+
+    const result = {
+      ok: doneReceived || streamedText.length > 0,
+      doneReceived,
+      tokenCount,
+      streamedTextLength: streamedText.length,
+      chunkCount,
+      firstTokenMs,
+      elapsedMs: getElapsedMs(streamStart)
+    };
+
+    logChat('stream result', result);
+    return result;
+  };
+
+  const sendMessageWithoutStream = async (message) => {
+    const requestStart = performance.now();
+    const askUrl = getApiUrl(CHAT_CONFIG.ASK_URL);
+
+    logChat('fallback request sending', {
+      url: askUrl,
+      method: 'POST',
+      messageLength: message.length,
+      hasEmail: Boolean(CHAT_CONFIG.DEFAULT_EMAIL)
+    });
+
+    const response = await fetch(askUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: CHAT_CONFIG.DEFAULT_EMAIL,
+        message
+      })
+    });
+
+    logChat('fallback response received', {
+      status: response.status,
+      ok: response.ok,
+      elapsedMs: getElapsedMs(requestStart),
+      contentType: response.headers.get('content-type')
+    });
+
+    if (!response.ok) {
+      const error = new Error('Standard request failed');
+      error.status = response.status;
+      throw error;
+    }
+
+    const data = await response.json();
+    logChat('fallback json parsed', {
+      elapsedMs: getElapsedMs(requestStart),
+      success: data?.success,
+      hasReply: Boolean(data?.reply),
+      replyLength: data?.reply?.length || 0
+    });
+
+    if (!data?.success || !data?.reply) {
+      throw new Error('Failed to get response');
+    }
+
+    pushBotMessage(data.reply);
+  };
+
   const handleKeyPress = (e) => {
+    logChat('key pressed in chat input', {
+      key: e.key,
+      shiftKey: e.shiftKey,
+      inputLength: inputMessage.length
+    });
+
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
+      logChat('enter submit triggered');
       sendMessage();
     }
+  };
+
+  const handleInputChange = (e) => {
+    setInputMessage(e.target.value);
+    logChat('input changed', {
+      inputLength: e.target.value.length,
+      isLoading
+    });
+  };
+
+  const toggleChatOpen = () => {
+    const nextIsOpen = !isOpen;
+    logChat('toggle button clicked', {
+      previousIsOpen: isOpen,
+      nextIsOpen
+    });
+    setIsOpen(nextIsOpen);
+  };
+
+  const toggleMinimized = () => {
+    const nextIsMinimized = !isMinimized;
+    logChat('minimize button clicked', {
+      previousIsMinimized: isMinimized,
+      nextIsMinimized
+    });
+    setIsMinimized(nextIsMinimized);
+  };
+
+  const closeChat = () => {
+    logChat('close button clicked');
+    setIsOpen(false);
   };
 
   return (
@@ -150,7 +519,7 @@ export default function Chat() {
         <Motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={toggleChatOpen}
           className="w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 bg-[#2563EB] dark:bg-[#60A5FA] text-white hover:shadow-xl"
         >
           <MessageCircle className="w-6 h-6" />
@@ -182,7 +551,7 @@ export default function Chat() {
                 <Motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  onClick={() => setIsMinimized(!isMinimized)}
+                  onClick={toggleMinimized}
                   className="w-6 h-6 hover:bg-white/20 rounded transition-colors"
                 >
                   {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
@@ -190,7 +559,7 @@ export default function Chat() {
                 <Motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  onClick={() => setIsOpen(false)}
+                  onClick={closeChat}
                   className="w-6 h-6 hover:bg-white/20 rounded transition-colors"
                 >
                   <X className="w-4 h-4" />
@@ -218,11 +587,10 @@ export default function Chat() {
                         className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
                         <div
-                          className={`max-w-[80%] px-3 py-2 rounded-lg text-sm ${
-                            message.sender === 'user'
+                          className={`max-w-[80%] px-3 py-2 rounded-lg text-sm ${message.sender === 'user'
                               ? 'bg-[#2563EB] dark:bg-[#60A5FA] text-white'
                               : 'bg-[#F1F5F9] dark:bg-[#1E293B] text-[#0F172A] dark:text-[#E5E7EB]'
-                          }`}
+                            }`}
                         >
                           {message.text}
                         </div>
@@ -254,7 +622,7 @@ export default function Chat() {
                       <input
                         type="text"
                         value={inputMessage}
-                        onChange={(e) => setInputMessage(e.target.value)}
+                        onChange={handleInputChange}
                         onKeyPress={handleKeyPress}
                         placeholder="Type your message..."
                         className="flex-1 px-3 py-2 text-sm bg-[#F8FAFC] dark:bg-[#0F172A] border border-[#E2E8F0] dark:border-[#1E293B] rounded-lg text-[#0F172A] dark:text-[#E5E7EB] placeholder-[#64748B] dark:placeholder-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30 dark:focus:ring-[#60A5FA]/30"
@@ -265,11 +633,10 @@ export default function Chat() {
                         whileTap={{ scale: 0.95 }}
                         onClick={sendMessage}
                         disabled={!inputMessage.trim() || isLoading}
-                        className={`px-3 py-2 rounded-lg transition-colors ${
-                          inputMessage.trim() && !isLoading
+                        className={`px-3 py-2 rounded-lg transition-colors ${inputMessage.trim() && !isLoading
                             ? 'bg-[#2563EB] dark:bg-[#60A5FA] text-white hover:bg-[#1D4ED8] dark:hover:bg-[#3B82F6]'
                             : 'bg-[#E2E8F0] dark:bg-[#1E293B] text-[#64748B] dark:text-[#94A3B8] cursor-not-allowed'
-                        }`}
+                          }`}
                       >
                         <Send className="w-4 h-4" />
                       </Motion.button>
