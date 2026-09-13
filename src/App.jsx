@@ -1,32 +1,25 @@
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import Chat from "./components/Chat";
-import { useTheme } from "./app/providers/ThemeProvider";
+import Navbar from "./components/navigation/Navbar";
+import Hero from "./sections/Hero";
+import Systems from "./sections/Systems";
+import Capabilities from "./sections/Capabilities";
+import Diagnostic from "./sections/Diagnostic";
+import Contact from "./sections/Contact";
+import Footer from "./components/navigation/Footer";
 
 const App = () => {
-  const { toggleTheme } = useTheme();
-
   return (
     <div className="min-h-screen bg-bg-main text-text-main transition-colors duration-300">
-      <Navbar toggleTheme={toggleTheme} />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
+      <Navbar />
+      <main>
+        <Hero />
+        <Systems />
+        <Capabilities />
+        <Diagnostic />
+        <Contact />
+      </main>
       <Footer />
-      <Chat />
     </div>
   );
 };
 
 export default App;
-
-
-
-
