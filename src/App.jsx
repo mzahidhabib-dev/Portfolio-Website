@@ -2,6 +2,7 @@ import Navbar from "./components/navigation/Navbar";
 import Hero from "./sections/Hero";
 import Systems from "./sections/Systems";
 import Capabilities from "./sections/Capabilities";
+import Architecture from "./sections/Architecture";
 import Diagnostic from "./sections/Diagnostic";
 import Contact from "./sections/Contact";
 import Footer from "./components/navigation/Footer";
@@ -14,6 +15,7 @@ const App = () => {
         <Hero />
         <Systems />
         <Capabilities />
+        <Architecture />
         <Diagnostic />
         <Contact />
       </main>
