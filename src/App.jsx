@@ -1,51 +1,27 @@
-import { useEffect, useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import Chat from "./components/Chat";
+import Navbar from "./components/navigation/Navbar";
+import Hero from "./sections/Hero";
+import Systems from "./sections/Systems";
+import Capabilities from "./sections/Capabilities";
+import Architecture from "./sections/Architecture";
+import Diagnostic from "./sections/Diagnostic";
+import Contact from "./sections/Contact";
+import Footer from "./components/navigation/Footer";
 
 const App = () => {
-  const [isDark, setIsDark] = useState(true);
-
-  // Init animations + default theme
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: false,
-      offset: 100,
-    });
-
-    document.documentElement.classList.add("dark");
-  }, []);
-
-  const toggleTheme = () => {
-    setIsDark((prev) => !prev);
-    document.documentElement.classList.toggle("dark");
-  };
-
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0F172A] transition-colors duration-300">
-      <Navbar toggleTheme={toggleTheme} />
-       <Hero />
-     <About />
-       <Skills />
-      <Projects />
-      <Contact />
-     <Footer />
-     <Chat />
+    <div className="min-h-screen bg-bg-main text-text-main transition-colors duration-300">
+      <Navbar />
+      <main>
+        <Hero />
+        <Systems />
+        <Capabilities />
+        <Architecture />
+        <Diagnostic />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   );
 };
 
 export default App;
-
-
-
-
