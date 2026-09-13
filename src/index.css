@@ -16,7 +16,17 @@
   --accent-main: #2563EB;
   --accent-hover: #1D4ED8;
   --accent-subtle: #EFF6FF;
+
+  /* Semantic Status & Overlay Tokens */
   --status-active: #059669;
+  --status-active-subtle: rgba(5, 150, 105, 0.1);
+  --status-warning: #D97706;
+  --status-warning-subtle: rgba(217, 119, 6, 0.1);
+  --status-error: #DC2626;
+  --status-error-subtle: rgba(220, 38, 38, 0.1);
+  --status-neutral: #64748B;
+  --status-neutral-subtle: rgba(100, 116, 139, 0.1);
+  --overlay-bg: rgba(15, 23, 42, 0.75);
 }
 
 .dark {
@@ -33,7 +43,17 @@
   --accent-main: #3B82F6;
   --accent-hover: #60A5FA;
   --accent-subtle: rgba(59, 130, 246, 0.12);
-  --status-active: #10B981;
+
+  /* Semantic Status & Overlay Tokens */
+  --status-active: #34D399;
+  --status-active-subtle: rgba(52, 211, 153, 0.12);
+  --status-warning: #FBBF24;
+  --status-warning-subtle: rgba(251, 191, 36, 0.12);
+  --status-error: #F87171;
+  --status-error-subtle: rgba(248, 113, 113, 0.12);
+  --status-neutral: #94A3B8;
+  --status-neutral-subtle: rgba(148, 163, 184, 0.12);
+  --overlay-bg: rgba(2, 6, 23, 0.82);
 }
 
 @theme {
@@ -48,7 +68,16 @@
   --color-accent-main: var(--accent-main);
   --color-accent-hover: var(--accent-hover);
   --color-accent-subtle: var(--accent-subtle);
+
   --color-status-active: var(--status-active);
+  --color-status-active-subtle: var(--status-active-subtle);
+  --color-status-warning: var(--status-warning);
+  --color-status-warning-subtle: var(--status-warning-subtle);
+  --color-status-error: var(--status-error);
+  --color-status-error-subtle: var(--status-error-subtle);
+  --color-status-neutral: var(--status-neutral);
+  --color-status-neutral-subtle: var(--status-neutral-subtle);
+  --color-overlay-bg: var(--overlay-bg);
 
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;

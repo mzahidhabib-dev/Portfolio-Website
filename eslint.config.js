@@ -28,6 +28,7 @@ export default [
     },
     rules: {
       ...js.configs.recommended.rules,
+      "react/jsx-uses-vars": "error",
       "no-unused-vars": "warn",
       "no-undef": "error",
       "no-redeclare": "off"
