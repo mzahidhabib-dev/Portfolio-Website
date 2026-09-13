@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import react from "eslint-plugin-react";
+import globals from "globals";
 
 export default [
   {
@@ -13,8 +14,8 @@ export default [
         }
       },
       globals: {
-        window: "readonly",
-        document: "readonly"
+        ...globals.browser,
+        ...globals.es2021
       }
     },
     plugins: {
@@ -28,7 +29,8 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       "no-unused-vars": "warn",
-      "no-undef": "error"
+      "no-undef": "error",
+      "no-redeclare": "off"
     }
   }
 ];

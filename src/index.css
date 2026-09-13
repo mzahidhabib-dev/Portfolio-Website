@@ -1,28 +1,67 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark * ));
+@custom-variant dark (&:where(.dark, .dark *));
 
-body{
-  font-family: 'Inter', sans-serif;
+:root {
+  color-scheme: light;
+  /* Light Theme Semantic Tokens */
+  --bg-main: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #F1F5F9;
+  --text-main: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --border-main: #E2E8F0;
+  --border-subtle: #F1F5F9;
+  --accent-main: #2563EB;
+  --accent-hover: #1D4ED8;
+  --accent-subtle: #EFF6FF;
+  --status-active: #059669;
 }
+
 .dark {
-color-scheme: dark;
+  color-scheme: dark;
+  /* Dark Theme Semantic Tokens - Dark Cybernetic / SaaS Premium */
+  --bg-main: #080C14;
+  --bg-surface: #0F172A;
+  --bg-elevated: #1E293B;
+  --text-main: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --border-main: #1E293B;
+  --border-subtle: #334155;
+  --accent-main: #3B82F6;
+  --accent-hover: #60A5FA;
+  --accent-subtle: rgba(59, 130, 246, 0.12);
+  --status-active: #10B981;
 }
-html{
+
+@theme {
+  --color-bg-main: var(--bg-main);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-text-main: var(--text-main);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-border-main: var(--border-main);
+  --color-border-subtle: var(--border-subtle);
+  --color-accent-main: var(--accent-main);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-status-active: var(--status-active);
+
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+html {
   scroll-behavior: smooth;
 }
 
-.star-shape {
-  clip-path: polygon(
-    50% 0%,
-    61% 35%,
-    98% 35%,
-    68% 57%,
-    79% 91%,
-    50% 70%,
-    21% 91%,
-    32% 57%,
-    2% 35%,
-    39% 35%
-  );
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
 }
