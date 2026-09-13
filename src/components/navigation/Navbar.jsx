@@ -21,7 +21,7 @@ export const Navbar = () => {
             <div className="p-1.5 rounded-lg bg-accent-subtle text-accent-main border border-accent-main/20">
               <Terminal className="w-4 h-4" />
             </div>
-            <span>ZAHID HABIB</span>
+            <span>M ZAHID H.</span>
           </a>
 
           <div className="hidden lg:block h-4 w-px bg-border-main" />

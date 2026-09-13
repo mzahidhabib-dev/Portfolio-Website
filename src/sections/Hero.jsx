@@ -24,7 +24,7 @@ export const Hero = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-text-secondary leading-relaxed max-w-2xl font-normal">
-              Architecting resilient production AI systems, LangGraph agent loops, multi-modal RAG platforms, and high-throughput n8n automation pipelines backed by 5+ years of full-stack software engineering.
+              Helping businesses scale by eliminating manual work, accelerating lead generation, and solving document search bottlenecks with reliable AI assistants and custom software.
             </p>
 
             {/* CTA Action Buttons */}
