@@ -37,6 +37,7 @@ export const PROJECTS = [
       },
     ],
     loomDemoUrl: "https://www.loom.com/embed/placeholder-prospectmind",
+    youtubeId: "1sRv7sZSmOU",
     demoType: "video",
   },
   {
