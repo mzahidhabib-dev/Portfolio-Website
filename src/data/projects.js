@@ -3,6 +3,11 @@ import ugcVideoImg from "../assets/ugc-video-pipeline.png";
 import seoNewsImg from "../assets/seo-news-pipeline.png";
 import viralTrendImg from "../assets/viral-trend-pipeline.png";
 import hotelBookingImg from "../assets/hotel-booking-pipeline.png";
+import redditComplianceImg from "../assets/reddit-compliance-pipeline.png";
+import shopifyArtImg from "../assets/shopify-art-pipeline.png";
+import famocareImg from "../assets/famocare-backend-architecture.png";
+import nutricalcImg from "../assets/nutricalc-architecture.jpg";
+import marketResearchImg from "../assets/market-research-pipeline.png";
 
 export const PROJECTS = [
   {
@@ -355,20 +360,70 @@ export const registryProjects = [
   {
     id: "reddit-compliance-evaluator",
     title: "Automated Subreddit Rule & Compliance Evaluator",
+    subtitle: "Pre-Flight Content QA, Robotic Pattern Detection & Automated Moderation Guardrail Engine",
+    tagline: "Pre-Flight Content QA, Robotic Pattern Detection & Automated Moderation Guardrail Engine",
+    slug: "reddit_compliance_evaluator",
     category: "n8n",
     badge: "n8n / Pre-Flight QA",
     metric: "100% Policy Adherence",
+    imageSrc: redditComplianceImg,
     summary: "Pre-flight evaluation engine checking AI-generated text against subreddit-specific rules, scanning for robotic text patterns, and verifying link formatting prior to posting.",
-    techStack: ["n8n", "LLM Evaluation", "Google Sheets"]
+    metrics: [
+      { label: "POLICY ADHERENCE", value: "100% Policy Adherence", trend: "positive" },
+      { label: "SPAM DETECTION", value: "Pre-Flight Spam Detection", trend: "positive" },
+      { label: "ACCOUNT SAFETY", value: "Protected Account Safety", trend: "positive" },
+    ],
+    techStack: ["n8n", "LLM Evaluation", "Google Sheets"],
+    pipelineSteps: [
+      { step: "01", name: "Draft Submission Ingestion", detail: "Webhook or Google Sheets trigger submits draft post text and target subreddit name for QA review." },
+      { step: "02", name: "Subreddit Rule Scrape & Context Fetch", detail: "Fetches official subreddit rules, self-promotion ratios, and banned keyword lists via Reddit API." },
+      { step: "03", name: "LLM Compliance & Tone Evaluation", detail: "Evaluates draft against rule set for robotic language patterns, promotional tone, and link policy compliance." },
+      { step: "04", name: "Risk Score & Violation Flagging", detail: "Calculates policy risk score (1-100) and returns specific line-item violation explanations if flagged." },
+      { step: "05", name: "Auto-Remediation & Suggestions", detail: "Rewrites flagged sentences to align with community tone while stripping forbidden affiliate or promotional links." },
+      { step: "06", name: "Dispatch Approval Queue", detail: "Appends approved/remediated draft to Dispatch Queue in Google Sheets and alerts moderator via Slack." },
+    ],
+    architectureFlow: [
+      { step: "01", name: "Draft Submission Ingestion", detail: "Webhook or Google Sheets trigger submits draft post text and target subreddit name for QA review." },
+      { step: "02", name: "Subreddit Rule Scrape & Context Fetch", detail: "Fetches official subreddit rules, self-promotion ratios, and banned keyword lists via Reddit API." },
+      { step: "03", name: "LLM Compliance & Tone Evaluation", detail: "Evaluates draft against rule set for robotic language patterns, promotional tone, and link policy compliance." },
+      { step: "04", name: "Risk Score & Violation Flagging", detail: "Calculates policy risk score (1-100) and returns specific line-item violation explanations if flagged." },
+      { step: "05", name: "Auto-Remediation & Suggestions", detail: "Rewrites flagged sentences to align with community tone while stripping forbidden affiliate or promotional links." },
+      { step: "06", name: "Dispatch Approval Queue", detail: "Appends approved/remediated draft to Dispatch Queue in Google Sheets and alerts moderator via Slack." },
+    ],
   },
   {
     id: "shopify-art-pipeline",
     title: "Visual Art Analysis to Shopify E-Commerce Engine",
+    subtitle: "Autonomous Multi-Modal Vision Tagging, SEO Copy Synthesis & Batch Shopify Sync",
+    tagline: "Autonomous Multi-Modal Vision Tagging, SEO Copy Synthesis & Batch Shopify Sync",
+    slug: "shopify_art_pipeline",
     category: "n8n",
     badge: "n8n / E-Commerce",
     metric: "Batch Product Sync",
+    imageSrc: shopifyArtImg,
     summary: "Ingests raw artwork from Google Drive, analyzes visual style and palette with AI vision, generates SEO product descriptions, and batches live uploads to Shopify.",
-    techStack: ["n8n", "OpenAI Vision", "Airtable", "Shopify GraphQL API"]
+    metrics: [
+      { label: "SYNC METHOD", value: "Batch Run", trend: "positive" },
+      { label: "TAGGING ENGINE", value: "Multimodal Vision", trend: "positive" },
+      { label: "MANUAL SAVINGS", value: "15+ Hrs Saved", trend: "positive" },
+    ],
+    techStack: ["n8n", "OpenAI Vision", "Airtable", "Shopify GraphQL API"],
+    pipelineSteps: [
+      { step: "01", name: "Google Drive Asset Ingestion", detail: "Monitors new high-resolution artwork uploads in Google Drive staging folder." },
+      { step: "02", name: "Multimodal Vision Analysis", detail: "OpenAI Vision analyzes art style, color palette, mood, medium, and aesthetic tags." },
+      { step: "03", name: "SEO Title & Copy Synthesis", detail: "Generates SEO-optimized product title, structured HTML description, and collection tags." },
+      { step: "04", name: "Airtable Staging & Metadata Store", detail: "Stores metadata, pricing tiers, variant attributes, and image links in Airtable master database." },
+      { step: "05", name: "Shopify GraphQL Batch Creation", detail: "Constructs Shopify GraphQL payloads to create products, attach variants, and set inventory counts." },
+      { step: "06", name: "Image CDN & Storefront Publish", detail: "Uploads high-res media to Shopify CDN, sets product status to active, and dispatches completion report." },
+    ],
+    architectureFlow: [
+      { step: "01", name: "Google Drive Asset Ingestion", detail: "Monitors new high-resolution artwork uploads in Google Drive staging folder." },
+      { step: "02", name: "Multimodal Vision Analysis", detail: "OpenAI Vision analyzes art style, color palette, mood, medium, and aesthetic tags." },
+      { step: "03", name: "SEO Title & Copy Synthesis", detail: "Generates SEO-optimized product title, structured HTML description, and collection tags." },
+      { step: "04", name: "Airtable Staging & Metadata Store", detail: "Stores metadata, pricing tiers, variant attributes, and image links in Airtable master database." },
+      { step: "05", name: "Shopify GraphQL Batch Creation", detail: "Constructs Shopify GraphQL payloads to create products, attach variants, and set inventory counts." },
+      { step: "06", name: "Image CDN & Storefront Publish", detail: "Uploads high-res media to Shopify CDN, sets product status to active, and dispatches completion report." },
+    ],
   },
 
   // ==========================================
@@ -377,20 +432,72 @@ export const registryProjects = [
   {
     id: "famocare-api",
     title: "FamoCare – Production Mobile Backend & REST APIs",
+    subtitle: "High-Availability Node.js & PostgreSQL Backend Powering Native iOS & Android Apps",
+    tagline: "High-Availability Node.js & PostgreSQL Backend Powering Native iOS & Android Apps",
+    slug: "famocare_backend_core",
+    fileExtension: ".api",
     category: "webdev",
     badge: "Backend & REST APIs",
     metric: "99.9% Production Uptime",
+    imageSrc: famocareImg,
     summary: "Production backend architecture powering native iOS & Android healthcare apps. Features JWT token rotation, fine-grained RBAC, time-series health tracking, and FCM push notifications.",
-    techStack: ["Node.js", "Express", "PostgreSQL", "Firebase FCM", "APNs", "Docker"]
+    metrics: [
+      { label: "UPTIME SLA", value: "99.9% API Availability", trend: "positive" },
+      { label: "DATA ARCHITECTURE", value: "Isolated Data Concurrency", trend: "positive" },
+      { label: "NOTIFICATION LATENCY", value: "Sub-Second Push Notifications", trend: "positive" },
+    ],
+    techStack: ["Node.js", "Express", "PostgreSQL", "Firebase FCM", "APNs", "Docker"],
+    pipelineSteps: [
+      { step: "01", name: "JWT Auth & Refresh Rotation", detail: "Secure OAuth2/JWT authentication flow with stateless refresh token rotation and RBAC middleware." },
+      { step: "02", name: "Express REST Router & Validation", detail: "Modular Express router enforcing strict JSON schema validation and rate-limiting rules." },
+      { step: "03", name: "PostgreSQL Relational Storage", detail: "Normalized PostgreSQL database handling transactional health records with ACID compliance." },
+      { step: "04", name: "Time-Series Vitals Engine", detail: "Aggregates daily biometric data, tracking symptoms and health trends over custom date ranges." },
+      { step: "05", name: "FCM & APNs Push Gateway", detail: "Asynchronous background queue triggering push notifications for medication reminders and alerts." },
+      { step: "06", name: "Docker & Production Deploy", detail: "Containerized deployment with health checks, structured logging, and zero-downtime rolling updates." },
+    ],
+    architectureFlow: [
+      { step: "01", name: "JWT Auth & Refresh Rotation", detail: "Secure OAuth2/JWT authentication flow with stateless refresh token rotation and RBAC middleware." },
+      { step: "02", name: "Express REST Router & Validation", detail: "Modular Express router enforcing strict JSON schema validation and rate-limiting rules." },
+      { step: "03", name: "PostgreSQL Relational Storage", detail: "Normalized PostgreSQL database handling transactional health records with ACID compliance." },
+      { step: "04", name: "Time-Series Vitals Engine", detail: "Aggregates daily biometric data, tracking symptoms and health trends over custom date ranges." },
+      { step: "05", name: "FCM & APNs Push Gateway", detail: "Asynchronous background queue triggering push notifications for medication reminders and alerts." },
+      { step: "06", name: "Docker & Production Deploy", detail: "Containerized deployment with health checks, structured logging, and zero-downtime rolling updates." },
+    ],
   },
   {
     id: "nutricalc-engine",
-    title: "NutriCalc – Nutritional Computation & Caching Engine",
+    title: "NutriCalc – High-Performance Nutritional Analytics Engine",
+    subtitle: "High-Throughput Node.js, Redis & MySQL Computation Microservice Architecture",
+    tagline: "High-Throughput Node.js, Redis & MySQL Computation Microservice Architecture",
+    slug: "nutricalc_engine_core",
+    fileExtension: ".api",
     category: "webdev",
     badge: "Microservices & Caching",
     metric: "Sub-Second Responses",
+    imageSrc: nutricalcImg,
     summary: "High-concurrency nutrition analytics engine utilizing aggressive Redis in-memory caching and optimized MySQL composite indexing to slash query latency.",
-    techStack: ["Node.js", "Redis", "MySQL", "Docker", "REST Microservices"]
+    metrics: [
+      { label: "QUERY LATENCY", value: "<150ms Query Response", trend: "positive" },
+      { label: "CACHE HIT RATE", value: "80%+ Database Offload", trend: "positive" },
+      { label: "SERVICE AVAILABILITY", value: "99.9% Production Uptime", trend: "positive" },
+    ],
+    techStack: ["Node.js", "Redis", "MySQL", "Docker", "REST Microservices"],
+    pipelineSteps: [
+      { step: "01", name: "Ingestion & Payload Parsing", detail: "Ingests client ingredient profiles, macro targets, and serving portion weights via REST API." },
+      { step: "02", name: "Redis Cache Key Lookup", detail: "Computes deterministic MD5 hash of ingredient combinations and checks in-memory Redis cache." },
+      { step: "03", name: "Cache Hit Instant Return", detail: "Returns pre-computed micronutrient totals and RDA percentages in under 15ms upon cache hit." },
+      { step: "04", name: "MySQL Relational Fallback Query", detail: "Executes optimized composite-indexed queries against USDA database tables on cache miss." },
+      { step: "05", name: "Macronutrient & Caloric Computation", detail: "Dynamically aggregates protein, carb, fat ratios, micronutrients, and glycemic index values." },
+      { step: "06", name: "Cache Population & JSON Delivery", detail: "Sets 24-hour TTL cache key in Redis and delivers structured JSON payload to requesting client." },
+    ],
+    architectureFlow: [
+      { step: "01", name: "Ingestion & Payload Parsing", detail: "Ingests client ingredient profiles, macro targets, and serving portion weights via REST API." },
+      { step: "02", name: "Redis Cache Key Lookup", detail: "Computes deterministic MD5 hash of ingredient combinations and checks in-memory Redis cache." },
+      { step: "03", name: "Cache Hit Instant Return", detail: "Returns pre-computed micronutrient totals and RDA percentages in under 15ms upon cache hit." },
+      { step: "04", name: "MySQL Relational Fallback Query", detail: "Executes optimized composite-indexed queries against USDA database tables on cache miss." },
+      { step: "05", name: "Macronutrient & Caloric Computation", detail: "Dynamically aggregates protein, carb, fat ratios, micronutrients, and glycemic index values." },
+      { step: "06", name: "Cache Population & JSON Delivery", detail: "Sets 24-hour TTL cache key in Redis and delivers structured JSON payload to requesting client." },
+    ],
   },
   {
     id: "starafa-platform",
@@ -422,10 +529,36 @@ export const registryProjects = [
   {
     id: "market-research-agent",
     title: "Autonomous Market Research & Web Scraping Engine",
+    subtitle: "Multi-Step Headless Web Extraction, Competitive Matrix Synthesis & Dossier Pipeline",
+    tagline: "Multi-Step Headless Web Extraction, Competitive Matrix Synthesis & Dossier Pipeline",
+    slug: "market_research_agent_core",
+    fileExtension: ".api",
     category: "webdev",
     badge: "Scraping & APIs",
     metric: "Automated Dossier Generation",
+    imageSrc: marketResearchImg,
     summary: "Multi-step web intelligence pipeline that crawls competitor websites, extracts pricing matrices, categorizes feature positioning, and compiles structured market intelligence briefs.",
-    techStack: ["CrewAI", "LangGraph", "Python", "Playwright", "FastAPI"]
+    metrics: [
+      { label: "EXTRACTION METHOD", value: "Headless Extraction", trend: "positive" },
+      { label: "OUTPUT FORMAT", value: "Automated Intelligence Briefs", trend: "positive" },
+      { label: "MANUAL SAVINGS", value: "15+ Hrs Saved", trend: "positive" },
+    ],
+    techStack: ["CrewAI", "LangGraph", "Python", "Playwright", "FastAPI"],
+    pipelineSteps: [
+      { step: "01", name: "Target Domain Ingestion", detail: "Receives list of competitor domain URLs and target research topics via REST endpoint." },
+      { step: "02", name: "Playwright Headless Crawl", detail: "Launches Playwright headless browser to bypass dynamic anti-scraping checks and extract DOM content." },
+      { step: "03", name: "DOM Cleaning & Text Extraction", detail: "Strips scripts, ads, and boilerplate HTML, isolating raw textual product & pricing content." },
+      { step: "04", name: "LLM Feature & Pricing Structuring", detail: "LangGraph / CrewAI agents parse unstructured copy into structured competitive matrices." },
+      { step: "05", name: "Dossier Synthesis & Trend Scoring", detail: "Synthesizes market positioning, key differentiator flags, and pricing tier trends into markdown dossier." },
+      { step: "06", name: "Postgres Store & Report Webhook", detail: "Stores generated competitive intelligence dossier in PostgreSQL database and fires summary notification webhook." },
+    ],
+    architectureFlow: [
+      { step: "01", name: "Target Domain Ingestion", detail: "Receives list of competitor domain URLs and target research topics via REST endpoint." },
+      { step: "02", name: "Playwright Headless Crawl", detail: "Launches Playwright headless browser to bypass dynamic anti-scraping checks and extract DOM content." },
+      { step: "03", name: "DOM Cleaning & Text Extraction", detail: "Strips scripts, ads, and boilerplate HTML, isolating raw textual product & pricing content." },
+      { step: "04", name: "LLM Feature & Pricing Structuring", detail: "LangGraph / CrewAI agents parse unstructured copy into structured competitive matrices." },
+      { step: "05", name: "Dossier Synthesis & Trend Scoring", detail: "Synthesizes market positioning, key differentiator flags, and pricing tier trends into markdown dossier." },
+      { step: "06", name: "Postgres Store & Report Webhook", detail: "Stores generated competitive intelligence dossier in PostgreSQL database and fires summary notification webhook." },
+    ],
   }
 ];

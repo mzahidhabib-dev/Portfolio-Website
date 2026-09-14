@@ -419,7 +419,9 @@ export const Systems = () => {
                       <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
                       <span className="font-mono text-xs text-text-muted ml-2">
                         {selectedProject.slug || selectedProject.id}
-                        {selectedProject.youtubeId
+                        {selectedProject.fileExtension
+                          ? selectedProject.fileExtension
+                          : selectedProject.youtubeId
                           ? "_walkthrough.mp4"
                           : selectedProject.category === "n8n"
                           ? ".n8n"
