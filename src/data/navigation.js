@@ -1,8 +1,8 @@
 export const NAV_LINKS = [
-  { label: "Systems", href: "#systems", id: "systems" },
+  { label: "Solutions", href: "#systems", id: "systems" },
   { label: "Capabilities", href: "#capabilities", id: "capabilities" },
-  { label: "Architecture", href: "#architecture", id: "architecture" },
-  { label: "Diagnostic", href: "#diagnostic", id: "diagnostic" },
+  { label: "How It Operates", href: "#architecture", id: "architecture" },
+  { label: "Request Briefing", href: "#diagnostic", id: "diagnostic" },
 ];
 
 export const TELEMETRY_STATUS = {

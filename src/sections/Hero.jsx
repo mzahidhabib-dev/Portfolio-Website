@@ -3,7 +3,7 @@ import Container from "../components/ui/Container";
 import Button from "../components/ui/Button";
 import Metric from "../components/ui/Metric";
 import Badge from "../components/ui/Badge";
-import StatusIndicator from "../components/ui/StatusIndicator";
+// import StatusIndicator from "../components/ui/StatusIndicator";
 
 export const Hero = () => {
   return (
@@ -16,7 +16,7 @@ export const Hero = () => {
               <Badge variant="accent" size="md">
                 // SYSTEM ARCHITECT & AI ENGINEER
               </Badge>
-              <StatusIndicator status="active" label="SYSTEMS ACTIVE" size="sm" />
+              {/* <StatusIndicator status="active" label="SYSTEMS ACTIVE" size="sm" /> */}
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-text-main leading-[1.1]">
