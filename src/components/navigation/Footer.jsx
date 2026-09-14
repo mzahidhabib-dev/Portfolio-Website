@@ -53,40 +53,44 @@ export const Footer = () => {
             <h4 className="font-mono text-xs font-semibold text-text-muted uppercase tracking-wider">
               VERIFIED CONNECT CHANNELS
             </h4>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2.5">
               <a
                 href={SOCIAL_LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
-                className="p-2 rounded-lg bg-bg-elevated text-text-secondary hover:text-text-main border border-border-main hover:border-accent-main/40 transition-all"
+                className="px-3 py-2 rounded-lg bg-bg-elevated text-text-secondary hover:text-text-main border border-border-main hover:border-accent-main/40 transition-all flex items-center gap-2 text-xs font-mono"
               >
-                <Github className="w-4 h-4" />
+                <Github className="w-4 h-4 text-accent-main" />
+                <span>GitHub</span>
               </a>
               <a
                 href={SOCIAL_LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
-                className="p-2 rounded-lg bg-bg-elevated text-text-secondary hover:text-text-main border border-border-main hover:border-accent-main/40 transition-all"
+                className="px-3 py-2 rounded-lg bg-bg-elevated text-text-secondary hover:text-text-main border border-border-main hover:border-accent-main/40 transition-all flex items-center gap-2 text-xs font-mono"
               >
-                <Linkedin className="w-4 h-4" />
+                <Linkedin className="w-4 h-4 text-accent-main" />
+                <span>LinkedIn</span>
               </a>
               <a
                 href={SOCIAL_LINKS.email}
                 aria-label="Send Professional Email"
-                className="p-2 rounded-lg bg-bg-elevated text-text-secondary hover:text-text-main border border-border-main hover:border-accent-main/40 transition-all"
+                className="px-3 py-2 rounded-lg bg-bg-elevated text-text-secondary hover:text-text-main border border-border-main hover:border-accent-main/40 transition-all flex items-center gap-2 text-xs font-mono"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4 text-accent-main" />
+                <span>Email</span>
               </a>
               <a
                 href={SOCIAL_LINKS.booking}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Book Cal.com Call"
-                className="p-2 rounded-lg bg-bg-elevated text-text-secondary hover:text-text-main border border-border-main hover:border-accent-main/40 transition-all"
+                className="px-3 py-2 rounded-lg bg-bg-elevated text-text-secondary hover:text-text-main border border-border-main hover:border-accent-main/40 transition-all flex items-center gap-2 text-xs font-mono"
               >
-                <Calendar className="w-4 h-4" />
+                <Calendar className="w-4 h-4 text-accent-main" />
+                <span>Book Call</span>
               </a>
             </div>
             <p className="text-[11px] text-text-muted font-mono">

@@ -17,9 +17,9 @@ export const Capabilities = () => {
     <section id="capabilities" className="py-16 sm:py-24 border-t border-border-main/50 bg-bg-elevated/30">
       <Container>
         <SectionHeader
-          eyebrow="PRODUCTION INFRASTRUCTURE"
+          eyebrow="ENTERPRISE-GRADE ARCHITECTURE"
           title="Built with modern software engineering discipline."
-          description="Over 5 years of full-stack software development powering custom AI interfaces, scalable microservices, and fault-tolerant pipelines."
+          description="Full-stack software engineering powering custom AI interfaces, scalable microservices, and fault-tolerant pipelines."
         />
 
         {/* 2x2 / 4-Column Capability Matrix */}

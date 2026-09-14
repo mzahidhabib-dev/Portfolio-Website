@@ -3,6 +3,8 @@ import Hero from "./sections/Hero";
 import Systems from "./sections/Systems";
 import Capabilities from "./sections/Capabilities";
 import Architecture from "./sections/Architecture";
+import Reviews from "./sections/Reviews";
+import Insights from "./sections/Insights";
 import Diagnostic from "./sections/Diagnostic";
 import Contact from "./sections/Contact";
 import Footer from "./components/navigation/Footer";
@@ -16,6 +18,8 @@ const App = () => {
         <Systems />
         <Capabilities />
         <Architecture />
+        <Reviews />
+        <Insights />
         <Diagnostic />
         <Contact />
       </main>
