@@ -1,3 +1,9 @@
+import leadScoringImg from "../assets/lead-scoring-pipeline.png";
+import ugcVideoImg from "../assets/ugc-video-pipeline.png";
+import seoNewsImg from "../assets/seo-news-pipeline.png";
+import viralTrendImg from "../assets/viral-trend-pipeline.png";
+import hotelBookingImg from "../assets/hotel-booking-pipeline.png";
+
 export const PROJECTS = [
   {
     id: "prospectmind-ai",
@@ -130,14 +136,14 @@ export const PROJECTS = [
     slug: "opsmind_operations_engine",
     youtubeId: "lGUJoXjWZxo",
     category: "Business Operations & Lead Triage",
-    tier: "production",
+    tier: "flagship",
     status: "active",
     summary:
       "Autonomous business operations engine that performs real-time inbox reading, sentiment detection, automated company research, instant CRM logging, Slack hot-lead alerts, 5:00 PM daily CrewAI activity reports, FinOps budget threshold alerts, and weekly accuracy evaluation.",
     metrics: [
       { label: "RESPONSE LATENCY", value: "<60s", trend: "positive" },
       { label: "VERIFIED ACCURACY", value: "92.5%", trend: "positive" },
-      { label: "OPERATIONAL SAVINGS", value: "10+ Hrs/Wk", trend: "positive" },
+      { label: "OPERATIONAL SAVINGS", value: "15+ Hrs/Wk", trend: "positive" },
     ],
     techStack: ["Python", "LangChain", "CrewAI", "Slack API", "HubSpot CRM", "FinOps Triggers"],
     architectureFlow: [
@@ -165,124 +171,261 @@ export const PROJECTS = [
     loomDemoUrl: "https://www.loom.com/embed/placeholder-operations-agent",
     demoType: "video",
   },
+];
+
+export const flagshipSystems = PROJECTS;
+
+export const registryProjects = [
+  // ==========================================
+  // CATEGORY 1: WORKFLOW AUTOMATIONS (n8n)
+  // ==========================================
   {
-    id: "lead-qualification-pipeline",
-    title: "Inbound Lead Qualification Pipeline",
-    tagline: "Automated Lead Scoring & Gmail Dispatch",
-    category: "Automated Lead Triage & Routing",
-    tier: "production",
-    status: "active",
-    summary:
-      "Automated inbound processing pipeline converting raw form submissions into firmographically enriched intent matrix scores, deflecting 2-3 hours of daily manual SDR work.",
-    metrics: [
-      { label: "RESPONSE LATENCY", value: "<60s", trend: "positive" },
-      { label: "INTENT MATRIX SCORE", value: "1–100", trend: "neutral" },
-      { label: "MANUAL WORK DEFLECTED", value: "2–3 hrs/day", trend: "positive" },
-    ],
-    techStack: ["n8n", "JotForm API", "Gmail API", "Clearbit", "Webhooks", "JSON Schema"],
-    architectureFlow: [
-      {
-        step: "01",
-        name: "Webhook Ingestion",
-        detail: "Instant capture of JotForm and landing page submissions.",
-      },
-      {
-        step: "02",
-        name: "Firmographic Enrich",
-        detail: "Automated API enrichment of company size, tech stack, and location.",
-      },
-      {
-        step: "03",
-        name: "AI Intent Tiering",
-        detail: "Algorithmic scoring (1-100) assigning high/medium/low priority.",
-      },
-      {
-        step: "04",
-        name: "Gmail API Dispatch",
-        detail: "Personalized response dispatch and calendar booking trigger.",
-      },
-    ],
-    loomDemoUrl: "https://www.loom.com/embed/placeholder-lead-qualification",
-    demoType: "interactive",
+    id: "lead-scoring-outreach",
+    title: "AI Inbound Lead Scoring & Outreach Pipeline",
+    category: "n8n",
+    badge: "n8n / Lead Gen",
+    metric: "<60s Response Time",
+    summary: "Event-driven workflow turning JotForm submissions into scored sales opportunities (1–100), enriching company data, and dispatching personalized Gmail outreach automatically.",
+    techStack: ["n8n", "OpenAI", "JotForm", "Google Sheets", "Gmail API"],
+    imageSrc: leadScoringImg,
   },
   {
-    id: "famocare-backend",
-    title: "FamoCare Microservices Backend",
-    tagline: "Full-Stack Healthcare Mobile App APIs",
-    category: "Full-Stack Healthcare Backend API",
-    tier: "systems",
-    status: "active",
-    summary:
-      "High-availability backend microservices powering live healthcare iOS and Android mobile apps. Features JWT authentication, RBAC authorization, and real-time push notification delivery.",
+    id: "ugc-video-automation",
+    title: "AI UGC Video Creation & Social Media Automation",
+    subtitle: "Autonomous Multi-Platform Video Rendering & Scheduled Social Distribution",
+    tagline: "Autonomous Multi-Platform Video Rendering & Scheduled Social Distribution",
+    slug: "ugc_video_engine",
+    category: "n8n",
+    badge: "n8n / Content Ops",
+    metric: "14 Avatars · Zero Manual",
+    imageSrc: ugcVideoImg,
+    summary: "Automated UGC video creation engine cycling through Google Sheets prompts, rendering 30s HeyGen portrait videos, and publishing across Instagram Reels and Facebook with execution logging.",
     metrics: [
-      { label: "API UPTIME", value: "99.99%", trend: "positive" },
-      { label: "ENDPOINT LATENCY", value: "<120ms", trend: "positive" },
-      { label: "SECURITY PROTOCOL", value: "JWT + RBAC", trend: "neutral" },
+      { label: "AVATAR ROTATION", value: "14 Avatars", trend: "positive" },
+      { label: "VIDEO RENDER LATENCY", value: "~50s Poll", trend: "positive" },
+      { label: "MANUAL EFFORT", value: "0 Minutes", trend: "positive" },
     ],
-    techStack: ["Node.js", "Express", "PostgreSQL", "Redis", "Docker", "Firebase Push"],
+    techStack: ["n8n", "HeyGen API v2", "GPT-4.1-mini", "upload-post.com", "Google Sheets"],
     architectureFlow: [
       {
         step: "01",
-        name: "API Gateway",
-        detail: "Rate-limited entry gateway handling CORS, SSL, and request routing.",
+        name: "Prompt & Modulo Rotation",
+        detail: "Cron trigger reads pending rows in Google Sheets, cycling through 14 avatar IDs via modulo index arithmetic.",
       },
       {
         step: "02",
-        name: "JWT Authentication",
-        detail: "Stateless JWT token verification and RBAC permission checks.",
+        name: "GPT-4.1-mini Script Engine",
+        detail: "Generates 30-second high-hook portrait video scripts formatted with strict system prompts for visual cadence.",
       },
       {
         step: "03",
-        name: "Database Query Engine",
-        detail: "Optimized PostgreSQL relational queries backed by Redis caching.",
+        name: "HeyGen v2 API Rendering",
+        detail: "Dispatches video generation payloads to HeyGen v2 API, executing a 50s exponential polling loop until render complete.",
       },
       {
         step: "04",
-        name: "Push Notification",
-        detail: "Asynchronous FCM dispatch for appointment reminders and alerts.",
+        name: "Multi-Platform Dispatch",
+        detail: "Downloads generated MP4 video asset and posts automatically to Instagram Reels and Facebook via upload-post.com API.",
       },
     ],
-    loomDemoUrl: "https://www.loom.com/embed/placeholder-famocare",
-    demoType: "architecture",
+  },
+  {
+    id: "ai-seo-blogging-pipeline",
+    title: "10-Step AI News Ingestion & SEO Blog Pipeline",
+    subtitle: "Autonomous Multi-Source RSS Ingestion, SEO Synthesis & Headless CMS Publishing",
+    tagline: "Autonomous Multi-Source RSS Ingestion, SEO Synthesis & Headless CMS Publishing",
+    slug: "seo_blogging_pipeline",
+    category: "n8n",
+    badge: "n8n / SEO Engine",
+    metric: "1,500-Word SEO Drafts",
+    imageSrc: seoNewsImg,
+    summary: "Daily scheduled RSS scraper that deduplicates AI industry news, generates long-tail keyword angles, creates H1/H2 outlines, drafts articles, and publishes via CMS REST API.",
+    metrics: [
+      { label: "EXECUTION CADENCE", value: "24-Hour Cadence", trend: "positive" },
+      { label: "ARTICLE LENGTH", value: "1.5k Words", trend: "positive" },
+      { label: "MANUAL SAVINGS", value: "20+ Hrs Saved", trend: "positive" },
+    ],
+    techStack: ["n8n", "RSS Parser", "OpenAI", "Supabase", "WordPress API"],
+    pipelineSteps: [
+      { step: "01", name: "RSS Ingestion", detail: "Scrapes top AI industry RSS feeds daily at 06:00 UTC." },
+      { step: "02", name: "Supabase Deduplication", detail: "Queries Supabase Postgres to filter out previously ingested article hashes." },
+      { step: "03", name: "Trending Topic Extraction", detail: "LLM extracts high-intent news topics and core technical claims." },
+      { step: "04", name: "Keyword & Intent Clustering", detail: "Generates primary and secondary long-tail SEO keyword targets." },
+      { step: "05", name: "H1/H2 Outline Synthesis", detail: "Constructs structured markdown outline with H1/H2 heading hierarchy." },
+      { step: "06", name: "1,500-Word Content Generation", detail: "Drafts comprehensive, highly technical 1,500-word blog article." },
+      { step: "07", name: "Meta Description & Slug Gen", detail: "Generates SEO meta description, URL slug, and social summary snippets." },
+      { step: "08", name: "AI Image Generation Prompt", detail: "Creates DALL-E/Midjourney prompts for blog hero banner artwork." },
+      { step: "09", name: "WordPress CMS REST Upload", detail: "Formats post payload into JSON and posts directly to Headless CMS API." },
+      { step: "10", name: "Slack & Social Dispatch", detail: "Dispatches instant Slack notification with live preview link and SEO score." },
+    ],
+    architectureFlow: [
+      { step: "01", name: "RSS Ingestion", detail: "Scrapes top AI industry RSS feeds daily at 06:00 UTC." },
+      { step: "02", name: "Supabase Deduplication", detail: "Queries Supabase Postgres to filter out previously ingested article hashes." },
+      { step: "03", name: "Trending Topic Extraction", detail: "LLM extracts high-intent news topics and core technical claims." },
+      { step: "04", name: "Keyword & Intent Clustering", detail: "Generates primary and secondary long-tail SEO keyword targets." },
+      { step: "05", name: "H1/H2 Outline Synthesis", detail: "Constructs structured markdown outline with H1/H2 heading hierarchy." },
+      { step: "06", name: "1,500-Word Content Generation", detail: "Drafts comprehensive, highly technical 1,500-word blog article." },
+      { step: "07", name: "Meta Description & Slug Gen", detail: "Generates SEO meta description, URL slug, and social summary snippets." },
+      { step: "08", name: "AI Image Generation Prompt", detail: "Creates DALL-E/Midjourney prompts for blog hero banner artwork." },
+      { step: "09", name: "WordPress CMS REST Upload", detail: "Formats post payload into JSON and posts directly to Headless CMS API." },
+      { step: "10", name: "Slack & Social Dispatch", detail: "Dispatches instant Slack notification with live preview link and SEO score." },
+    ],
+  },
+  {
+    id: "viral-trend-hunter",
+    title: "Social Viral Trend Monitor & Competitor Scraper",
+    subtitle: "Cross-Platform Video Scraping, Velocity Scoring & AI Visual Hook Intelligence",
+    tagline: "Cross-Platform Video Scraping, Velocity Scoring & AI Visual Hook Intelligence",
+    slug: "viral_trend_hunter",
+    category: "n8n",
+    badge: "n8n / Intelligence",
+    metric: "Real-Time Viral Alerts",
+    imageSrc: viralTrendImg,
+    summary: "Monitors TikTok and Instagram using Apify actors, normalizes video engagement metrics, analyzes visual hooks with AI vision, and triggers instant Slack alerts for viral outliers.",
+    metrics: [
+      { label: "PLATFORM COVERAGE", value: "TikTok + IG", trend: "positive" },
+      { label: "SCRAPE SCHEDULE", value: "Daily Cron", trend: "positive" },
+      { label: "MANUAL SAVINGS", value: "15+ Hrs Saved", trend: "positive" },
+    ],
+    techStack: ["n8n", "Apify", "OpenAI Vision", "Google Sheets", "Slack Webhooks"],
+    pipelineSteps: [
+      { step: "01", name: "Apify Actor Scrape Trigger", detail: "Scheduled cron triggers Apify actors to crawl target TikTok hashtags and Instagram competitor profiles." },
+      { step: "02", name: "Engagement Metric Normalization", detail: "Calculates engagement velocity ratio (views vs likes/comments vs account baseline)." },
+      { step: "03", name: "Outlier Threshold Filter", detail: "Filters out videos with engagement velocity > 3.5x standard deviation above average." },
+      { step: "04", name: "AI Vision Frame Analysis", detail: "GPT-4o Vision analyzes video thumbnail keyframes to identify visual hook tactics." },
+      { step: "05", name: "Transcript & Caption OCR", detail: "Extracts spoken script text and on-screen text overlays for copywriting analysis." },
+      { step: "06", name: "Master Sheets Database Logging", detail: "Appends normalized video metrics, transcript, and viral score to Google Sheets." },
+      { step: "07", name: "Slack Alert Dispatcher", detail: "Fires instant Slack webhook alert formatted with video preview, metrics, and hook breakdown." },
+      { step: "08", name: "Competitor Strategy Digest", detail: "Compiles weekly executive summary report highlighting top performing visual patterns." },
+    ],
+    architectureFlow: [
+      { step: "01", name: "Apify Actor Scrape Trigger", detail: "Scheduled cron triggers Apify actors to crawl target TikTok hashtags and Instagram competitor profiles." },
+      { step: "02", name: "Engagement Metric Normalization", detail: "Calculates engagement velocity ratio (views vs likes/comments vs account baseline)." },
+      { step: "03", name: "Outlier Threshold Filter", detail: "Filters out videos with engagement velocity > 3.5x standard deviation above average." },
+      { step: "04", name: "AI Vision Frame Analysis", detail: "GPT-4o Vision analyzes video thumbnail keyframes to identify visual hook tactics." },
+      { step: "05", name: "Transcript & Caption OCR", detail: "Extracts spoken script text and on-screen text overlays for copywriting analysis." },
+      { step: "06", name: "Master Sheets Database Logging", detail: "Appends normalized video metrics, transcript, and viral score to Google Sheets." },
+      { step: "07", name: "Slack Alert Dispatcher", detail: "Fires instant Slack webhook alert formatted with video preview, metrics, and hook breakdown." },
+      { step: "08", name: "Competitor Strategy Digest", detail: "Compiles weekly executive summary report highlighting top performing visual patterns." },
+    ],
+  },
+  {
+    id: "hotel-booking-triage",
+    title: "Gmail Hotel Booking Parser & Triage Engine",
+    subtitle: "Autonomous Inbound Reservation Extraction, Urgency Routing & Error-Trapped Sheets Sync",
+    tagline: "Autonomous Inbound Reservation Extraction, Urgency Routing & Error-Trapped Sheets Sync",
+    slug: "hotel_booking_triage",
+    category: "n8n",
+    badge: "n8n / Data Extraction",
+    metric: "Zero Booking Leakage",
+    imageSrc: hotelBookingImg,
+    summary: "Hourly scanner parsing booking inquiries and PDF invoices from Gmail, validating reservation dates with GPT-4o-mini, and updating team allocation sheets automatically.",
+    metrics: [
+      { label: "SCAN FREQUENCY", value: "Hourly Scan", trend: "positive" },
+      { label: "EXTRACTION ACCURACY", value: "100% Extraction", trend: "positive" },
+      { label: "MANUAL SAVINGS", value: "10+ Hrs Saved", trend: "positive" },
+    ],
+    techStack: ["n8n", "Gmail API", "GPT-4o-mini", "Google Sheets"],
+    pipelineSteps: [
+      { step: "01", name: "Gmail Inbound Poll", detail: "Hourly cron checks unread emails matching reservation & invoice search queries via Gmail API." },
+      { step: "02", name: "PDF Attachment Binary Parsing", detail: "Extracts raw PDF invoice attachments and unrolls inline HTML body text." },
+      { step: "03", name: "GPT-4o-mini Data Structuring", detail: "LLM extracts guest names, check-in/out dates, room types, billing totals, and special requests into JSON schema." },
+      { step: "04", name: "Reservation Validation Node", detail: "Validates date ranges, calculates total night stay counts, and checks for conflicting duplicate bookings." },
+      { step: "05", name: "Google Sheets Inventory Sync", detail: "Appends parsed booking record to Master Allocation Google Sheet with cell highlighting for urgent check-ins." },
+      { step: "06", name: "Triage Alert & Error Trap", detail: "Fires Slack notification for high-value VIP bookings and routes unparseable edge-case PDFs to error queue." },
+    ],
+    architectureFlow: [
+      { step: "01", name: "Gmail Inbound Poll", detail: "Hourly cron checks unread emails matching reservation & invoice search queries via Gmail API." },
+      { step: "02", name: "PDF Attachment Binary Parsing", detail: "Extracts raw PDF invoice attachments and unrolls inline HTML body text." },
+      { step: "03", name: "GPT-4o-mini Data Structuring", detail: "LLM extracts guest names, check-in/out dates, room types, billing totals, and special requests into JSON schema." },
+      { step: "04", name: "Reservation Validation Node", detail: "Validates date ranges, calculates total night stay counts, and checks for conflicting duplicate bookings." },
+      { step: "05", name: "Google Sheets Inventory Sync", detail: "Appends parsed booking record to Master Allocation Google Sheet with cell highlighting for urgent check-ins." },
+      { step: "06", name: "Triage Alert & Error Trap", detail: "Fires Slack notification for high-value VIP bookings and routes unparseable edge-case PDFs to error queue." },
+    ],
+  },
+  {
+    id: "algorithmic-twitter-scheduler",
+    title: "Algorithmic Social Content & Promo Dispatcher",
+    category: "n8n",
+    badge: "n8n / Social Engine",
+    metric: "2-Hour Cron Cadence",
+    summary: "Executes automated 70/30 content vs. promo posting schedules using 10 copywriting frameworks, anti-duplicate history logging, and randomized delays.",
+    techStack: ["n8n", "Gemini API", "Twitter API v2", "Google Sheets"]
+  },
+  {
+    id: "reddit-compliance-evaluator",
+    title: "Automated Subreddit Rule & Compliance Evaluator",
+    category: "n8n",
+    badge: "n8n / Pre-Flight QA",
+    metric: "100% Policy Adherence",
+    summary: "Pre-flight evaluation engine checking AI-generated text against subreddit-specific rules, scanning for robotic text patterns, and verifying link formatting prior to posting.",
+    techStack: ["n8n", "LLM Evaluation", "Google Sheets"]
+  },
+  {
+    id: "shopify-art-pipeline",
+    title: "Visual Art Analysis to Shopify E-Commerce Engine",
+    category: "n8n",
+    badge: "n8n / E-Commerce",
+    metric: "Batch Product Sync",
+    summary: "Ingests raw artwork from Google Drive, analyzes visual style and palette with AI vision, generates SEO product descriptions, and batches live uploads to Shopify.",
+    techStack: ["n8n", "OpenAI Vision", "Airtable", "Shopify GraphQL API"]
+  },
+
+  // ==========================================
+  // CATEGORY 2: CUSTOM PLATFORMS, APIS & WEB
+  // ==========================================
+  {
+    id: "famocare-api",
+    title: "FamoCare – Production Mobile Backend & REST APIs",
+    category: "webdev",
+    badge: "Backend & REST APIs",
+    metric: "99.9% Production Uptime",
+    summary: "Production backend architecture powering native iOS & Android healthcare apps. Features JWT token rotation, fine-grained RBAC, time-series health tracking, and FCM push notifications.",
+    techStack: ["Node.js", "Express", "PostgreSQL", "Firebase FCM", "APNs", "Docker"]
   },
   {
     id: "nutricalc-engine",
-    title: "NutriCalc Analytics Engine",
-    tagline: "High-Throughput Nutritional Compute API",
-    category: "High-Performance Calculation Engine",
-    tier: "systems",
-    status: "active",
-    summary:
-      "High-throughput calculation engine delivering under 250ms latency for complex nutritional metrics, serving over 10,000 requests per minute with Redis caching and Docker isolation.",
-    metrics: [
-      { label: "ENDPOINT LATENCY", value: "<250ms", trend: "positive" },
-      { label: "THROUGHPUT CAPACITY", value: "10k req/min", trend: "positive" },
-      { label: "DEPLOYMENT CONTAINER", value: "DOCKER", trend: "neutral" },
-    ],
-    techStack: ["Python", "FastAPI", "Redis", "Docker", "PostgreSQL", "JSON Schema"],
-    architectureFlow: [
-      {
-        step: "01",
-        name: "HTTP Ingestion",
-        detail: "FastAPI async endpoint receiving structured nutritional payloads.",
-      },
-      {
-        step: "02",
-        name: "Redis Cache Lookup",
-        detail: "Instant retrieval of previously computed calculation hashes.",
-      },
-      {
-        step: "03",
-        name: "Compute Processing",
-        detail: "Algorithmic nutritional compute and macronutrient breakdown.",
-      },
-      {
-        step: "04",
-        name: "Response Serialization",
-        detail: "Strict JSON schema validation and response serialization.",
-      },
-    ],
-    loomDemoUrl: "https://www.loom.com/embed/placeholder-nutricalc",
-    demoType: "video",
+    title: "NutriCalc – Nutritional Computation & Caching Engine",
+    category: "webdev",
+    badge: "Microservices & Caching",
+    metric: "Sub-Second Responses",
+    summary: "High-concurrency nutrition analytics engine utilizing aggressive Redis in-memory caching and optimized MySQL composite indexing to slash query latency.",
+    techStack: ["Node.js", "Redis", "MySQL", "Docker", "REST Microservices"]
   },
+  {
+    id: "starafa-platform",
+    title: "Starafa – Celebrity & Influencer Booking Marketplace",
+    category: "webdev",
+    badge: "Full-Stack Web App",
+    metric: "Live Production Web",
+    summary: "Interactive talent booking platform featuring custom video/audio shoutout workflows, headless CMS integration, dynamic talent directories, and responsive mobile architecture.",
+    techStack: ["React", "TypeScript", "Node.js", "Tailwind CSS", "Headless CMS"]
+  },
+  {
+    id: "custom-site-chatbot",
+    title: "Production Web Assistant & Interactive Knowledge Chatbot",
+    category: "webdev",
+    badge: "Full-Stack Chatbot",
+    metric: "Low-Latency WebSockets",
+    summary: "Custom interactive web assistant built with NestJS, TypeScript, and React, featuring conversational context memory, authenticated session handling, and direct API integrations.",
+    techStack: ["NestJS", "TypeScript", "React", "WebSockets", "Tailwind CSS"]
+  },
+  {
+    id: "enterprise-hr-concierge",
+    title: "Enterprise AI HR Concierge & Lifecycle Engine",
+    category: "webdev",
+    badge: "Full-Stack Agent UI",
+    metric: "Employee Friction Radar",
+    summary: "Full-stack multi-tenant HR concierge featuring handbook policy RAG, automated PTO database validation, payroll variance checks, and an interactive React Control Center UI.",
+    techStack: ["LangGraph", "Python", "FastAPI", "PostgreSQL", "React UI"]
+  },
+  {
+    id: "market-research-agent",
+    title: "Autonomous Market Research & Web Scraping Engine",
+    category: "webdev",
+    badge: "Scraping & APIs",
+    metric: "Automated Dossier Generation",
+    summary: "Multi-step web intelligence pipeline that crawls competitor websites, extracts pricing matrices, categorizes feature positioning, and compiles structured market intelligence briefs.",
+    techStack: ["CrewAI", "LangGraph", "Python", "Playwright", "FastAPI"]
+  }
 ];

@@ -41,7 +41,7 @@ export const CAPABILITY_DOMAINS = [
     tagline: "Scalable frontend interfaces, backend microservices, and containerized deployments.",
     techStack: ["React 19", "TypeScript", "Node.js", "Express", "PostgreSQL", "Redis", "Docker"],
     standards: [
-      "5+ years of full-stack software engineering and microservice API design",
+      "Production-grade full-stack software engineering and microservice API design",
       "Clean architecture with decoupled data layers and reusable UI primitives",
       "Stateless JWT auth, RBAC security controls, and rate-limiting gateways",
       "Guaranteed 30-day post-launch support warranty on all custom builds",
