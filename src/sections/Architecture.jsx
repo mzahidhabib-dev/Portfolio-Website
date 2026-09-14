@@ -9,53 +9,53 @@ export const Architecture = () => {
     {
       id: "state-graphs",
       icon: GitBranch,
-      title: "Deterministic State Graphs",
-      subtitle: "LangGraph, self-verification nodes, and idempotent loop execution.",
+      title: "Deterministic State Machines",
+      subtitle: "LangGraph workflows, self-verification nodes, and human approval gates.",
       badge: "AGENTIC CONTROL",
       highlights: [
-        "Explicit graph state transitions replacing chaotic unconstrained agent loops",
-        "Deterministic self-checking validation nodes before any user delivery",
-        "Idempotent state persistence permitting instant checkpoint restarts",
-        "Sub-graph isolation for specialized task domain experts",
+        "Strict graph state transitions preventing chaotic, runaway agent loops",
+        "Automated self-verification nodes checking factual accuracy before output delivery",
+        "Human-in-the-Loop (HITL) approval cards for high-risk actions (refunds, deletions)",
+        "Idempotent state checkpoints enabling instant failover and zero-loss restarts",
       ],
     },
     {
       id: "defense-security",
       icon: ShieldCheck,
       title: "Defense-in-Depth Security",
-      subtitle: "Upfront PII redaction, prompt injection firewalls, and HITL queues.",
+      subtitle: "Upfront PII redaction, prompt injection firewalls, and audit logging.",
       badge: "SECURITY GATEWAY",
       highlights: [
-        "Pre-inference regex & Named Entity Recognition (NER) PII masking",
-        "Adversarial prompt injection detection filtering malicious payloads",
-        "Human-in-the-Loop (HITL) approval queues for high-risk write operations",
-        "Strict zero-data-retention agreements with LLM API providers",
+        "Pre-inference PII masking (names, emails, cards) before data reaches external models",
+        "Frontline adversarial prompt injection filters sanitizing malicious payloads",
+        "Comprehensive execution audit logs tracking every model decision and tool call",
+        "Strict zero-data-retention parameters enforced across all enterprise API endpoints",
       ],
     },
     {
       id: "hybrid-retrieval",
       icon: Database,
-      title: "Hybrid Retrieval & Data Isolation",
-      subtitle: "Dense + sparse hybrid vector search, pgvector, and multi-tenant SQL.",
+      title: "Grounded Multi-Modal Retrieval",
+      subtitle: "Dense + sparse hybrid search, table parsing, and source-page citations.",
       badge: "RAG INFRASTRUCTURE",
       highlights: [
-        "Hybrid BM25 keyword + pgvector semantic embedding retrieval",
-        "Multi-modal Gemini Vision extraction for complex tables & diagrams",
-        "Strict row-level security (RLS) isolating multi-tenant data stores",
-        "Exact source-page citation highlighting in interactive PDF viewers",
+        "Hybrid search (BM25 keyword + pgvector semantic retrieval) for high precision",
+        "Multi-modal vision extraction parsing dense tables, balance sheets, and diagrams",
+        "Interactive UI citation highlighting that maps answers to exact PDF source pages",
+        "Multi-tenant data isolation ensuring complete workspace boundary protection",
       ],
     },
     {
       id: "microservices-apis",
       icon: Server,
-      title: "Resilient Microservices & APIs",
-      subtitle: "JSON schema validation, exponential backoff, and centralized telemetry.",
+      title: "Resilient Cloud Microservices",
+      subtitle: "Schema validation, retry mechanics, and real-time FinOps cost controls.",
       badge: "API RESILIENCE",
       highlights: [
-        "Strict Pydantic / TypeScript JSON schema runtime validation",
-        "Exponential backoff retries with dead-letter queue (DLQ) alerts",
-        "Redis rate-limiting gateways protecting downstream model endpoints",
-        "FinOps token tracking monitoring real-time cost-per-transaction",
+        "Strict runtime schema validation preventing broken or malformed data pipelines",
+        "Exponential backoff retries with dead-letter queues to guarantee zero dropped tasks",
+        "Redis rate-limiting gateways protecting downstream APIs and webhooks",
+        "Real-time FinOps token monitoring with automated budget alerts to prevent bill shock",
       ],
     },
   ];
@@ -66,7 +66,7 @@ export const Architecture = () => {
         <SectionHeader
           eyebrow="ENGINEERING PILLARS"
           title="Architected for reliability, security, and deterministic outcomes."
-          description="Every AI deployment adheres to strict production engineering principles — preventing hallucinations, eliminating data leaks, and guaranteeing sub-second responsiveness."
+          description="Every system is engineered to production standards — eliminating hallucinations, preventing data leaks, and ensuring human control over critical operations."
         />
 
         {/* 4 Architectural Pillar Cards */}
