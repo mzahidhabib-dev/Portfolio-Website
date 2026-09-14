@@ -25,9 +25,9 @@ export const Systems = () => {
     <section id="systems" className="py-16 sm:py-24 border-t border-border-main/50">
       <Container>
         <SectionHeader
-          eyebrow="FLAGSHIP PRODUCTION SYSTEMS"
-          title="Tested in production. Engineered for zero data leakage."
-          description="Production architectures replacing manual operational bottlenecks with measurable economic return."
+          eyebrow="PROVEN PRODUCTION SYSTEMS"
+          title="Tested in production. Engineered for measurable business return."
+          description="Eliminate operational drag without losing control. Reliable AI systems engineered to automate lead qualification, complex document search, and routine workflows with built-in human verification."
         />
 
         {/* Top Flagship Bento Systems Grid */}
@@ -290,20 +290,50 @@ export const Systems = () => {
               <h4 className="text-xs font-mono font-semibold text-text-muted uppercase mb-3">
                 SYSTEM DEMO &amp; TELEMETRY VIEW
               </h4>
-              <div className="relative w-full aspect-video rounded-xl bg-bg-elevated border border-border-main flex flex-col items-center justify-center p-6 text-center overflow-hidden">
-                <div className="p-3 rounded-full bg-accent-subtle text-accent-main mb-3">
-                  <Play className="w-6 h-6" />
+              {selectedProject.youtubeId ? (
+                <div className="rounded-xl bg-bg-elevated border border-border-main overflow-hidden shadow-lg">
+                  {/* Terminal Window Header Bar */}
+                  <div className="flex items-center justify-between px-4 py-2.5 bg-bg-surface border-b border-border-main">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                      <span className="font-mono text-xs text-text-muted ml-2">
+                        {selectedProject.slug || selectedProject.id}_walkthrough.mp4
+                      </span>
+                    </div>
+                    <Badge variant="outline" size="sm">
+                      WALKTHROUGH DEMO
+                    </Badge>
+                  </div>
+
+                  {/* Responsive 16:9 YouTube iFrame */}
+                  <div className="relative aspect-video w-full bg-black">
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${selectedProject.youtubeId}?rel=0&modestbranding=1&controls=1`}
+                      title={`${selectedProject.title} Walkthrough Video`}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full border-0"
+                    />
+                  </div>
                 </div>
-                <h5 className="text-sm font-bold text-text-main mb-1">
-                  Interactive Demo Stream: {selectedProject.title}
-                </h5>
-                <p className="text-xs text-text-muted max-w-md mb-4">
-                  Full Loom video preview and telemetry trace available upon request during architecture intake calls.
-                </p>
-                <Button href="#diagnostic" size="sm" variant="primary" onClick={() => setSelectedProject(null)}>
-                  Book System Demo Call
-                </Button>
-              </div>
+              ) : (
+                <div className="relative w-full aspect-video rounded-xl bg-bg-elevated border border-border-main flex flex-col items-center justify-center p-6 text-center overflow-hidden">
+                  <div className="p-3 rounded-full bg-accent-subtle text-accent-main mb-3">
+                    <Play className="w-6 h-6" />
+                  </div>
+                  <h5 className="text-sm font-bold text-text-main mb-1">
+                    Architecture Walkthrough Available Upon Request
+                  </h5>
+                  <p className="text-xs text-text-muted max-w-md mb-4">
+                    Full Loom video preview and telemetry trace available upon request during architecture intake calls.
+                  </p>
+                  <Button href="#diagnostic" size="sm" variant="primary" onClick={() => setSelectedProject(null)}>
+                    Book System Demo Call
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         )}

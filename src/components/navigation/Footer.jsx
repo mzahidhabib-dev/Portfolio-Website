@@ -17,7 +17,7 @@ export const Footer = () => {
               <div className="p-1.5 rounded-lg bg-accent-subtle text-accent-main border border-accent-main/20">
                 <Terminal className="w-4 h-4" />
               </div>
-              <span>ZAHID HABIB</span>
+              <span>M ZAHID H.</span>
             </a>
 
             <p className="text-xs text-text-secondary leading-relaxed max-w-sm font-normal">

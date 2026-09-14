@@ -139,7 +139,7 @@ export const Contact = () => {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Zahid Habib"
+                        placeholder="id Habib"
                         className="w-full px-3.5 py-2.5 text-sm rounded-lg bg-bg-elevated border border-border-main text-text-main placeholder:text-text-muted focus:outline-hidden focus:border-accent-main transition-colors"
                       />
                     </div>
@@ -153,7 +153,7 @@ export const Contact = () => {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="zahid@company.com"
+                        placeholder="id@company.com"
                         className="w-full px-3.5 py-2.5 text-sm rounded-lg bg-bg-elevated border border-border-main text-text-main placeholder:text-text-muted focus:outline-hidden focus:border-accent-main transition-colors"
                       />
                     </div>

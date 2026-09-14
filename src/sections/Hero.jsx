@@ -3,7 +3,7 @@ import Container from "../components/ui/Container";
 import Button from "../components/ui/Button";
 import Metric from "../components/ui/Metric";
 import Badge from "../components/ui/Badge";
-import StatusIndicator from "../components/ui/StatusIndicator";
+// import StatusIndicator from "../components/ui/StatusIndicator";
 
 export const Hero = () => {
   return (
@@ -16,7 +16,7 @@ export const Hero = () => {
               <Badge variant="accent" size="md">
                 // SYSTEM ARCHITECT & AI ENGINEER
               </Badge>
-              <StatusIndicator status="active" label="SYSTEMS ACTIVE" size="sm" />
+              {/* <StatusIndicator status="active" label="SYSTEMS ACTIVE" size="sm" /> */}
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-text-main leading-[1.1]">
@@ -24,7 +24,7 @@ export const Hero = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-text-secondary leading-relaxed max-w-2xl font-normal">
-              Architecting resilient production AI systems, LangGraph agent loops, multi-modal RAG platforms, and high-throughput n8n automation pipelines backed by 5+ years of full-stack software engineering.
+              Helping businesses scale by eliminating manual work, accelerating lead generation, and solving document search bottlenecks with reliable AI assistants and custom software.
             </p>
 
             {/* CTA Action Buttons */}
@@ -46,27 +46,27 @@ export const Hero = () => {
             {/* Above-The-Fold Telemetry Metrics */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full pt-6 border-t border-border-main">
               <Metric
-                label="PROSPECTMIND COST"
+                label="ACQUISITION COST"
                 value="$0.0420"
                 change="PER 2 MEETINGS"
                 trend="positive"
-                description="Autonomous SDR Agent"
+                description="Autonomous Lead Qualifier"
                 size="sm"
               />
               <Metric
-                label="DOCMIND ACCURACY"
+                label="DOC SEARCH ACCURACY"
                 value="100%"
-                change="GROUNDED"
+                change="VERIFIED"
                 trend="positive"
-                description="Exact Source PDF Citations"
+                description="Exact Source Page Citations"
                 size="sm"
               />
               <Metric
-                label="LEAD LATENCY"
+                label="INBOUND SPEED"
                 value="<60s"
                 change="AUTOMATED"
                 trend="positive"
-                description="n8n Pipeline Dispatch"
+                description="Form to Qualified CRM Record"
                 size="sm"
               />
             </div>
@@ -81,10 +81,10 @@ export const Hero = () => {
                   <div className="w-3 h-3 rounded-full bg-rose-500/80" />
                   <div className="w-3 h-3 rounded-full bg-amber-500/80" />
                   <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                  <span className="font-mono text-xs text-text-muted ml-2">agent_execution_loop.py</span>
+                  <span className="font-mono text-xs text-text-muted ml-2">pipeline_performance.py</span>
                 </div>
                 <Badge variant="outline" size="sm">
-                  LIVE TELEMETRY
+                  ACTIVE RUN
                 </Badge>
               </div>
 
@@ -93,42 +93,42 @@ export const Hero = () => {
                 <div className="flex items-center justify-between p-2.5 rounded-lg bg-bg-elevated border border-border-subtle">
                   <div className="flex items-center gap-2">
                     <Zap className="w-4 h-4 text-amber-500" />
-                    <span>01. Webhook Payload Ingestion</span>
+                    <span>Manual Work Eliminated</span>
                   </div>
-                  <span className="text-emerald-500 font-semibold">PASS [12ms]</span>
+                  <span className="text-emerald-500 font-semibold">15+ HRS / WEEK</span>
                 </div>
 
                 <div className="flex items-center justify-between p-2.5 rounded-lg bg-bg-elevated border border-border-subtle">
                   <div className="flex items-center gap-2">
                     <Cpu className="w-4 h-4 text-accent-main" />
-                    <span>02. MCP Intent &amp; ICP Scoring</span>
+                    <span>Inbound Response Speed</span>
                   </div>
-                  <span className="text-emerald-500 font-semibold">94/100 FIT</span>
+                  <span className="text-emerald-500 font-semibold">&lt;60s [INSTANT]</span>
                 </div>
 
                 <div className="flex items-center justify-between p-2.5 rounded-lg bg-bg-elevated border border-border-subtle">
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                    <span>03. Self-Verification Gate</span>
+                    <span>Pre-Call Executive Briefing</span>
                   </div>
-                  <span className="text-emerald-500 font-semibold">GROUNDED</span>
+                  <span className="text-emerald-500 font-semibold">GENERATED</span>
                 </div>
 
                 <div className="p-3 rounded-lg bg-accent-subtle/50 border border-accent-main/20 text-text-main space-y-1">
                   <div className="flex items-center justify-between font-semibold text-accent-main">
-                    <span>SYS_OUTPUT: DISPATCH EXECUTION</span>
-                    <span>100% SUCCESS</span>
+                    <span>PIPELINE RESULT: MEETINGS BOOKED</span>
+                    <span>$0.0420 SPEND</span>
                   </div>
                   <p className="text-[11px] text-text-muted">
-                    Payload passed security filters, verified grounding, and auto-dispatched lead brief to CRM.
+                    Leads researched, personalized copy drafted, and CRM updated with zero manual entry.
                   </p>
                 </div>
               </div>
 
               {/* Bottom Console Footer */}
               <div className="mt-4 pt-3 border-t border-border-main flex items-center justify-between text-xs font-mono text-text-muted">
-                <span>STACK: Python / LangGraph / Redis</span>
-                <span className="text-emerald-500 font-medium">● 0% PII LEAKAGE</span>
+                <span>STACK: Full-Stack + n8n + AI</span>
+                <span className="text-emerald-500 font-medium">● 100% INBOX DELIVERY</span>
               </div>
             </div>
           </div>

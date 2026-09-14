@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Sun, Moon, Menu, X, Terminal } from "lucide-react";
 import { useTheme } from "../../app/providers/ThemeProvider";
-import { NAV_LINKS, TELEMETRY_STATUS } from "../../data/navigation";
-import StatusIndicator from "../ui/StatusIndicator";
+import { NAV_LINKS } from "../../data/navigation";
+// import StatusIndicator from "../ui/StatusIndicator";
 import Button from "../ui/Button";
 
 export const Navbar = () => {
@@ -21,18 +21,16 @@ export const Navbar = () => {
             <div className="p-1.5 rounded-lg bg-accent-subtle text-accent-main border border-accent-main/20">
               <Terminal className="w-4 h-4" />
             </div>
-            <span>ZAHID HABIB</span>
+            <span>M ZAHID H.</span>
           </a>
 
-          <div className="hidden lg:block h-4 w-px bg-border-main" />
-
-          <div className="hidden sm:flex items-center">
+          {/* <div className="hidden sm:flex items-center">
             <StatusIndicator
               status={TELEMETRY_STATUS.status}
               label={TELEMETRY_STATUS.label}
               size="sm"
             />
-          </div>
+          </div> */}
         </div>
 
         {/* Desktop Navigation Links */}
@@ -83,13 +81,13 @@ export const Navbar = () => {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-border-main bg-bg-surface px-4 py-4 space-y-3">
-          <div className="pb-2 border-b border-border-main sm:hidden">
+          {/* <div className="pb-2 border-b border-border-main sm:hidden">
             <StatusIndicator
               status={TELEMETRY_STATUS.status}
               label={TELEMETRY_STATUS.label}
               size="sm"
             />
-          </div>
+          </div> */}
 
           <nav className="flex flex-col space-y-2">
             {NAV_LINKS.map((link) => (
