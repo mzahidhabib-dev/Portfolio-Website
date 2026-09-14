@@ -299,7 +299,7 @@ export const Systems = () => {
                       <div className="w-3 h-3 rounded-full bg-amber-500/80" />
                       <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
                       <span className="font-mono text-xs text-text-muted ml-2">
-                        {selectedProject.id}_walkthrough.mp4
+                        {selectedProject.slug || selectedProject.id}_walkthrough.mp4
                       </span>
                     </div>
                     <Badge variant="outline" size="sm">
