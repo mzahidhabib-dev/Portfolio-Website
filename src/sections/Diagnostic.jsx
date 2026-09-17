@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { CheckCircle2, Calendar, ArrowRight, Zap } from "lucide-react";
+import { CheckCircle2, ArrowRight, Zap } from "lucide-react";
 import Container from "../components/ui/Container";
 import SectionHeader from "../components/ui/SectionHeader";
 import Card from "../components/ui/Card";
 import Badge from "../components/ui/Badge";
 import Button from "../components/ui/Button";
-import { SOCIAL_LINKS } from "../data/navigation";
 
 export const Diagnostic = () => {
   const [selectedBottleneck, setSelectedBottleneck] = useState("lead-outreach");
-  const [selectedVolume, setSelectedVolume] = useState("50–500/mo");
+  const [selectedVolume, setSelectedVolume] = useState("100 – 1,000 / mo");
 
   const bottlenecks = [
     {
@@ -32,9 +31,14 @@ export const Diagnostic = () => {
       title: "Disjointed Internal Operations & Inbox Chaos",
       description: "Manual triage across emails, CRMs, webhooks, and Slack channels.",
     },
+    {
+      id: "custom-system",
+      title: "Custom System / Other Bottleneck",
+      description: "Legacy API bottlenecks, custom web apps, database scaling, or bespoke workflows.",
+    },
   ];
 
-  const volumes = ["<50/mo", "50–500/mo", "500+/mo"];
+  const volumes = ["<100 / mo", "100 – 1,000 / mo", "1,000+ / mo"];
 
   const blueprintMap = {
     "lead-outreach": {
@@ -69,9 +73,39 @@ export const Diagnostic = () => {
       impact: "Deflects 75%+ of manual triage work with sub-60 second response latency.",
       safeguards: ["Strict JSON Schema Validation", "Exponential Backoff Retries", "30-Day Support Warranty"],
     },
+    "custom-system": {
+      name: "Bespoke Architecture & Systems Engineering",
+      architecture: "Node.js / Python Microservices + Scalable DB + Event-Driven APIs",
+      payback: "Immediate ROI",
+      timeline: "1–3 Weeks (Scope-Dependent)",
+      impact: "Eliminates technical debt, API rate-limit bottlenecks, and unhandled edge-case failures across your core workflow.",
+      safeguards: [
+        "Idempotent Transaction Execution",
+        "Comprehensive Architectural Runbooks",
+        "30-Day Production Stability Warranty",
+      ],
+    },
   };
 
   const activeBlueprint = blueprintMap[selectedBottleneck] || blueprintMap["lead-outreach"];
+  const activeBottleneckObject = bottlenecks.find((b) => b.id === selectedBottleneck);
+
+  const handleRequestBlueprint = () => {
+    const scopeText = `[Selected Blueprint: ${activeBlueprint.name} | Volume: ${selectedVolume} | Focus: ${activeBottleneckObject?.title || "Custom"}]`;
+
+    // Emit event to prefill scope in Contact section
+    window.dispatchEvent(
+      new CustomEvent("prefill-contact-scope", {
+        detail: { scopeText },
+      })
+    );
+
+    // Smooth scroll to #contact section
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section id="diagnostic" className="py-16 sm:py-24 border-t border-border-main/50">
@@ -129,7 +163,7 @@ export const Diagnostic = () => {
 
             <div>
               <label className="font-mono text-xs font-semibold text-text-muted uppercase block mb-3">
-                STEP 2: ESTIMATED MONTHLY VOLUME
+                STEP 2: ESTIMATED MONTHLY WORKFLOW VOLUME
               </label>
               <div className="grid grid-cols-3 gap-3">
                 {volumes.map((vol) => {
@@ -220,24 +254,33 @@ export const Diagnostic = () => {
                   </ul>
                 </div>
 
-                <div className="pt-3 border-t border-border-main flex flex-col sm:flex-row items-center gap-3">
-                  <Button
-                    href={SOCIAL_LINKS.booking}
-                    target="_blank"
-                    variant="primary"
-                    size="md"
-                    className="w-full sm:w-auto justify-center"
-                    icon={Calendar}
-                  >
-                    Book Architecture Review Call
-                  </Button>
-                  <a
-                    href="#contact"
-                    className="text-xs font-medium text-text-muted hover:text-text-main flex items-center gap-1"
-                  >
-                    <span>Or Submit Scope Form</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
+                <div className="pt-4 border-t border-border-main space-y-3">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <Button
+                      type="button"
+                      variant="primary"
+                      size="md"
+                      className="w-full sm:w-auto justify-center"
+                      onClick={handleRequestBlueprint}
+                      icon={ArrowRight}
+                    >
+                      Request Architecture Blueprint →
+                    </Button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const el = document.getElementById("systems");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className="text-xs font-medium text-text-muted hover:text-text-main flex items-center justify-center gap-1 transition-colors cursor-pointer py-2"
+                    >
+                      <span>Explore Live Deployments</span>
+                      <span className="text-accent-main">↓</span>
+                    </button>
+                  </div>
+                  <p className="text-[11px] font-mono text-text-muted text-center sm:text-left">
+                    Zero sales pressure. Delivered as a technical architecture brief within 24 hours.
+                  </p>
                 </div>
               </div>
             </Card>

@@ -38,8 +38,8 @@ export const Hero = () => {
               >
                 Explore Production Systems
               </Button>
-              <Button href="#diagnostic" variant="secondary" size="lg">
-                Book Architecture Call
+              <Button href="#contact" variant="glass" size="lg">
+                Request System Intake
               </Button>
             </div>
 

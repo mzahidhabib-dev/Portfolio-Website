@@ -111,12 +111,12 @@ export const Navbar = () => {
 
           <div className="hidden md:block">
             <Button
-              href="#diagnostic"
+              href="#contact"
               size="sm"
-              variant="primary"
-              onClick={(e) => handleNavClick(e, "#diagnostic")}
+              variant="glassPrimary"
+              onClick={(e) => handleNavClick(e, "#contact")}
             >
-              Book Architecture Call
+              Request System Intake
             </Button>
           </div>
 
@@ -162,13 +162,13 @@ export const Navbar = () => {
 
           <div className="pt-2">
             <Button
-              href="#diagnostic"
+              href="#contact"
               size="sm"
-              variant="primary"
+              variant="glassPrimary"
               className="w-full justify-center"
-              onClick={(e) => handleNavClick(e, "#diagnostic")}
+              onClick={(e) => handleNavClick(e, "#contact")}
             >
-              Book Architecture Call
+              Request System Intake
             </Button>
           </div>
         </div>

@@ -480,10 +480,10 @@ export const Systems = () => {
                     Architecture Walkthrough Available Upon Request
                   </h5>
                   <p className="text-xs text-text-muted max-w-md mb-4">
-                    Full Loom video preview and telemetry trace available upon request during architecture intake calls.
+                    Full Loom video preview and telemetry trace available upon request during system intake.
                   </p>
-                  <Button href="#diagnostic" size="sm" variant="primary" onClick={handleCloseModal}>
-                    Book System Demo Call
+                  <Button href="#contact" size="sm" variant="primary" onClick={handleCloseModal}>
+                    Request System Intake
                   </Button>
                 </div>
               )}

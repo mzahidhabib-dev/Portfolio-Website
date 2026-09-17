@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Calendar, CheckCircle2, Send, ShieldCheck, Mail } from "lucide-react";
+import { useState, useEffect } from "react";
+import { CheckCircle2, Send, ShieldCheck, Mail, Play } from "lucide-react";
 import Container from "../components/ui/Container";
 import SectionHeader from "../components/ui/SectionHeader";
 import Card from "../components/ui/Card";
@@ -16,12 +16,48 @@ export const Contact = () => {
     message: "",
   });
 
+  useEffect(() => {
+    const handlePrefill = (event) => {
+      const scopeText = event.detail?.scopeText;
+      if (scopeText) {
+        setFormData((prev) => ({
+          ...prev,
+          message: prev.message ? `${scopeText}\n\n${prev.message}` : scopeText,
+        }));
+
+        // Focus the textarea after scroll completes
+        setTimeout(() => {
+          const textarea = document.querySelector('textarea[name="message"]');
+          if (textarea) {
+            textarea.focus();
+          }
+        }, 500);
+      }
+    };
+
+    window.addEventListener("prefill-contact-scope", handlePrefill);
+    return () => {
+      window.removeEventListener("prefill-contact-scope", handlePrefill);
+    };
+  }, []);
+
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleTeardownClick = () => {
+    const nameInput = document.querySelector('input[name="name"]');
+    if (nameInput) {
+      nameInput.focus();
+      nameInput.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      return;
+    }
     setFormState("submitting");
     setTimeout(() => {
       setFormState("success");
@@ -34,35 +70,34 @@ export const Contact = () => {
         <SectionHeader
           eyebrow="HIGH-TRUST CONVERSION CENTER"
           title="Direct engineering evaluation. Zero sales fluff."
-          description="Schedule a 15-minute architecture call or send your project scope to receive a tailored system estimate."
+          description="Request a concise video teardown or submit your project scope to receive a tailored system estimate."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: Direct Cal.com Scheduling & Guarantees */}
+          {/* Left Column: Async Video Teardown & Guarantees */}
           <div className="lg:col-span-5 space-y-6">
             <Card variant="default" className="p-6 sm:p-8 space-y-6">
               <div className="flex items-center gap-2">
-                <Badge variant="accent">OPTION 1: DIRECT CALENDAR</Badge>
+                <Badge variant="accent">OPTION 1: ASYNC TEARDOWN</Badge>
               </div>
 
               <div>
                 <h3 className="text-xl sm:text-2xl font-bold text-text-main mb-2">
-                  Book a 15-Minute Architecture Review
+                  Request an Architecture Video Teardown
                 </h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
-                  Direct technical evaluation with the engineer building your system. We will analyze your bottleneck, model context requirements, and outline a delivery plan.
+                  Prefer not to jump on a live call? Send over your website or manual workflow description. I will record a private Loom breakdown diagnosing your operational bottlenecks, failure points, and data architecture — delivered directly to your inbox within 24 hours.
                 </p>
               </div>
 
               <Button
-                href={SOCIAL_LINKS.booking}
-                target="_blank"
+                onClick={handleTeardownClick}
                 variant="primary"
                 size="lg"
                 className="w-full justify-center"
-                icon={Calendar}
+                icon={Play}
               >
-                Schedule via Cal.com
+                ▶ Request Video Teardown
               </Button>
 
               <div className="pt-4 border-t border-border-main space-y-3">
@@ -72,15 +107,15 @@ export const Contact = () => {
                 <ul className="space-y-2.5">
                   <li className="flex items-start gap-2.5 text-xs text-text-secondary">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <span>Guaranteed 30-day post-launch support warranty</span>
+                    <span>Zero sales pressure — 100% technical architecture review</span>
                   </li>
                   <li className="flex items-start gap-2.5 text-xs text-text-secondary">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <span>Full architectural documentation &amp; runbooks included</span>
+                    <span>Actionable system teardown delivered within 24 hours</span>
                   </li>
                   <li className="flex items-start gap-2.5 text-xs text-text-secondary">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <span>Direct engineering communication &amp; rapid turnarounds</span>
+                    <span>Guaranteed 30-day post-launch support warranty on all deployments</span>
                   </li>
                 </ul>
               </div>
@@ -139,7 +174,7 @@ export const Contact = () => {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="id Habib"
+                        placeholder="Zahid Habib"
                         className="w-full px-3.5 py-2.5 text-sm rounded-lg bg-bg-elevated border border-border-main text-text-main placeholder:text-text-muted focus:outline-hidden focus:border-accent-main transition-colors"
                       />
                     </div>
@@ -153,22 +188,23 @@ export const Contact = () => {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="id@company.com"
+                        placeholder="zahid@company.com"
                         className="w-full px-3.5 py-2.5 text-sm rounded-lg bg-bg-elevated border border-border-main text-text-main placeholder:text-text-muted focus:outline-hidden focus:border-accent-main transition-colors"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="font-mono text-xs font-medium text-text-muted block mb-1.5">
-                      COMPANY / WEBSITE URL
+                    <label className="block text-xs font-mono text-text-muted mb-1.5 flex items-center justify-between">
+                      <span>COMPANY / WEBSITE URL</span>
+                      <span className="text-[10px] text-text-muted/60 font-mono">(OPTIONAL)</span>
                     </label>
                     <input
                       type="text"
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      placeholder="company.com"
+                      placeholder="company.com (leave blank if stealth or pre-launch)"
                       className="w-full px-3.5 py-2.5 text-sm rounded-lg bg-bg-elevated border border-border-main text-text-main placeholder:text-text-muted focus:outline-hidden focus:border-accent-main transition-colors"
                     />
                   </div>
@@ -183,7 +219,7 @@ export const Contact = () => {
                       required
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Describe your current manual process, volume, and ideal AI automation outcome..."
+                      placeholder="Describe your current manual process, tools used, and ideal automation or architecture outcome..."
                       className="w-full px-3.5 py-2.5 text-sm rounded-lg bg-bg-elevated border border-border-main text-text-main placeholder:text-text-muted focus:outline-hidden focus:border-accent-main transition-colors resize-none"
                     />
                   </div>
@@ -202,7 +238,7 @@ export const Contact = () => {
                   </Button>
 
                   <p className="text-[11px] text-text-muted text-center font-mono">
-                    Strict NDA &amp; confidentiality guaranteed on all technical inquiries.
+                    Strict NDA &amp; confidentiality guaranteed. Architectural feasibility delivered within 24 hours.
                   </p>
                 </form>
               )}

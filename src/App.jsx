@@ -4,7 +4,7 @@ import Systems from "./sections/Systems";
 import Capabilities from "./sections/Capabilities";
 import Architecture from "./sections/Architecture";
 import Reviews from "./sections/Reviews";
-import Insights from "./sections/Insights";
+// import Insights from "./sections/Insights";
 import Diagnostic from "./sections/Diagnostic";
 import Contact from "./sections/Contact";
 import Footer from "./components/navigation/Footer";
@@ -19,7 +19,7 @@ const App = () => {
         <Capabilities />
         <Architecture />
         <Reviews />
-        <Insights />
+        {/* <Insights /> */}
         <Diagnostic />
         <Contact />
       </main>
