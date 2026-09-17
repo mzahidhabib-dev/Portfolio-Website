@@ -83,14 +83,12 @@ export const Footer = () => {
                 <span>Email</span>
               </a>
               <a
-                href={SOCIAL_LINKS.booking}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Book Cal.com Call"
+                href="#contact"
+                aria-label="Request System Intake"
                 className="px-3 py-2 rounded-lg bg-bg-elevated text-text-secondary hover:text-text-main border border-border-main hover:border-accent-main/40 transition-all flex items-center gap-2 text-xs font-mono"
               >
                 <Calendar className="w-4 h-4 text-accent-main" />
-                <span>Book Call</span>
+                <span>System Intake</span>
               </a>
             </div>
             <p className="text-[11px] text-text-muted font-mono">

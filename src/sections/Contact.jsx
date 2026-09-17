@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CheckCircle2, Send, ShieldCheck, Mail, Play } from "lucide-react";
 import Container from "../components/ui/Container";
 import SectionHeader from "../components/ui/SectionHeader";
@@ -15,6 +15,31 @@ export const Contact = () => {
     company: "",
     message: "",
   });
+
+  useEffect(() => {
+    const handlePrefill = (event) => {
+      const scopeText = event.detail?.scopeText;
+      if (scopeText) {
+        setFormData((prev) => ({
+          ...prev,
+          message: prev.message ? `${scopeText}\n\n${prev.message}` : scopeText,
+        }));
+
+        // Focus the textarea after scroll completes
+        setTimeout(() => {
+          const textarea = document.querySelector('textarea[name="message"]');
+          if (textarea) {
+            textarea.focus();
+          }
+        }, 500);
+      }
+    };
+
+    window.addEventListener("prefill-contact-scope", handlePrefill);
+    return () => {
+      window.removeEventListener("prefill-contact-scope", handlePrefill);
+    };
+  }, []);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -45,7 +70,7 @@ export const Contact = () => {
         <SectionHeader
           eyebrow="HIGH-TRUST CONVERSION CENTER"
           title="Direct engineering evaluation. Zero sales fluff."
-          description="Request a 90-second video teardown or submit your project scope to receive a tailored system estimate."
+          description="Request a concise video teardown or submit your project scope to receive a tailored system estimate."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -58,10 +83,10 @@ export const Contact = () => {
 
               <div>
                 <h3 className="text-xl sm:text-2xl font-bold text-text-main mb-2">
-                  Request a 90-Second Architecture Teardown
+                  Request an Architecture Video Teardown
                 </h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
-                  Prefer not to jump on a live call? Send over your website or manual workflow description. I will record a private, 90-second Loom breakdown diagnosing your operational bottlenecks, failure points, and data architecture — delivered directly to your inbox within 24 hours.
+                  Prefer not to jump on a live call? Send over your website or manual workflow description. I will record a private Loom breakdown diagnosing your operational bottlenecks, failure points, and data architecture — delivered directly to your inbox within 24 hours.
                 </p>
               </div>
 

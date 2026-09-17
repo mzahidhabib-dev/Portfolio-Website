@@ -1,51 +1,14 @@
 import { useState } from "react";
-import { CheckCircle2, ArrowRight, Zap, Send, ShieldCheck } from "lucide-react";
+import { CheckCircle2, ArrowRight, Zap } from "lucide-react";
 import Container from "../components/ui/Container";
 import SectionHeader from "../components/ui/SectionHeader";
 import Card from "../components/ui/Card";
 import Badge from "../components/ui/Badge";
 import Button from "../components/ui/Button";
-import Modal from "../components/ui/Modal";
 
 export const Diagnostic = () => {
   const [selectedBottleneck, setSelectedBottleneck] = useState("lead-outreach");
   const [selectedVolume, setSelectedVolume] = useState("100 – 1,000 / mo");
-  const [isScopeModalOpen, setIsScopeModalOpen] = useState(false);
-  const [scopeFormState, setScopeFormState] = useState("idle"); // 'idle' | 'submitting' | 'submitted'
-  const [scopeFormData, setScopeFormData] = useState({
-    name: "",
-    email: "",
-    companyUrl: "",
-    currentStack: "",
-    scopeDescription: "",
-  });
-
-  const handleScopeFormChange = (e) => {
-    const { name, value } = e.target;
-    setScopeFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleScopeFormSubmit = (e) => {
-    e.preventDefault();
-    setScopeFormState("submitting");
-    setTimeout(() => {
-      setScopeFormState("submitted");
-    }, 800);
-  };
-
-  const handleCloseScopeModal = () => {
-    setIsScopeModalOpen(false);
-    setTimeout(() => {
-      setScopeFormState("idle");
-      setScopeFormData({
-        name: "",
-        email: "",
-        companyUrl: "",
-        currentStack: "",
-        scopeDescription: "",
-      });
-    }, 300);
-  };
 
   const bottlenecks = [
     {
@@ -126,6 +89,23 @@ export const Diagnostic = () => {
 
   const activeBlueprint = blueprintMap[selectedBottleneck] || blueprintMap["lead-outreach"];
   const activeBottleneckObject = bottlenecks.find((b) => b.id === selectedBottleneck);
+
+  const handleRequestBlueprint = () => {
+    const scopeText = `[Selected Blueprint: ${activeBlueprint.name} | Volume: ${selectedVolume} | Focus: ${activeBottleneckObject?.title || "Custom"}]`;
+
+    // Emit event to prefill scope in Contact section
+    window.dispatchEvent(
+      new CustomEvent("prefill-contact-scope", {
+        detail: { scopeText },
+      })
+    );
+
+    // Smooth scroll to #contact section
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section id="diagnostic" className="py-16 sm:py-24 border-t border-border-main/50">
@@ -281,10 +261,10 @@ export const Diagnostic = () => {
                       variant="primary"
                       size="md"
                       className="w-full sm:w-auto justify-center"
-                      onClick={() => setIsScopeModalOpen(true)}
+                      onClick={handleRequestBlueprint}
                       icon={ArrowRight}
                     >
-                      Request Architecture Blueprint
+                      Request Architecture Blueprint →
                     </Button>
                     <button
                       type="button"
@@ -307,155 +287,6 @@ export const Diagnostic = () => {
           </div>
         </div>
       </Container>
-
-      {/* Scope Intake Modal */}
-      <Modal
-        isOpen={isScopeModalOpen}
-        onClose={handleCloseScopeModal}
-        title="Submit System Scope & Architecture Requirements"
-        maxWidth="max-w-xl"
-      >
-        {scopeFormState === "submitted" ? (
-          <div className="py-8 px-4 text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
-              <CheckCircle2 className="w-8 h-8" />
-            </div>
-            <h4 className="text-xl font-bold text-text-main">
-              Scope Received — I will review your technical requirements and send an architectural feasibility breakdown within 24 hours.
-            </h4>
-            <p className="text-sm text-text-secondary leading-relaxed max-w-md mx-auto font-normal">
-              Your system parameters have been queued. A detailed technical architecture brief will be sent to <span className="font-mono text-accent-main font-semibold">{scopeFormData.email || "your email"}</span>.
-            </p>
-            <div className="pt-4">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleCloseScopeModal}
-              >
-                Close Intake Modal
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <form onSubmit={handleScopeFormSubmit} className="space-y-4">
-            {/* Pre-populated Selected Bottleneck Badge */}
-            <div className="flex flex-wrap items-center justify-between gap-2 p-3 rounded-lg bg-bg-elevated border border-border-main mb-4">
-              <div className="flex items-center gap-2">
-                <Badge variant="accent" size="sm">SELECTED BOTTLENECK</Badge>
-                <span className="text-xs font-semibold text-text-main">
-                  {activeBottleneckObject?.title}
-                </span>
-              </div>
-              <span className="text-[11px] font-mono text-text-muted">{selectedVolume}</span>
-            </div>
-
-            <p className="text-xs text-text-secondary leading-relaxed font-normal mb-4">
-              Provide details about your operational bottleneck and technical requirements for a preliminary system assessment.
-            </p>
-
-            {/* Name */}
-            <div>
-              <label htmlFor="scope-name" className="block text-xs font-mono font-semibold text-text-muted uppercase mb-1.5">
-                Full Name <span className="text-rose-400">*</span>
-              </label>
-              <input
-                id="scope-name"
-                name="name"
-                type="text"
-                required
-                value={scopeFormData.name}
-                onChange={handleScopeFormChange}
-                placeholder="Alex Vance"
-                className="w-full px-3.5 py-2.5 rounded-lg bg-bg-surface border border-border-main text-text-main placeholder:text-text-muted text-xs focus:outline-none focus:border-accent-main focus:ring-1 focus:ring-accent-main transition-all"
-              />
-            </div>
-
-            {/* Work Email */}
-            <div>
-              <label htmlFor="scope-email" className="block text-xs font-mono font-semibold text-text-muted uppercase mb-1.5">
-                Work Email <span className="text-rose-400">*</span>
-              </label>
-              <input
-                id="scope-email"
-                name="email"
-                type="email"
-                required
-                value={scopeFormData.email}
-                onChange={handleScopeFormChange}
-                placeholder="alex@company.com"
-                className="w-full px-3.5 py-2.5 rounded-lg bg-bg-surface border border-border-main text-text-main placeholder:text-text-muted text-xs focus:outline-none focus:border-accent-main focus:ring-1 focus:ring-accent-main transition-all"
-              />
-            </div>
-
-            {/* Company / Website URL (Explicitly OPTIONAL) */}
-            <div>
-              <label htmlFor="scope-company-url" className="block text-xs font-mono font-semibold text-text-muted uppercase mb-1.5">
-                Company Website <span className="text-text-muted font-normal lowercase">(Optional)</span>
-              </label>
-              <input
-                id="scope-company-url"
-                name="companyUrl"
-                type="text"
-                value={scopeFormData.companyUrl}
-                onChange={handleScopeFormChange}
-                placeholder="company.com (Leave blank if pre-launch or stealth)"
-                className="w-full px-3.5 py-2.5 rounded-lg bg-bg-surface border border-border-main text-text-main placeholder:text-text-muted text-xs focus:outline-none focus:border-accent-main focus:ring-1 focus:ring-accent-main transition-all"
-              />
-            </div>
-
-            {/* Current Stack / Tools (Optional) */}
-            <div>
-              <label htmlFor="scope-current-stack" className="block text-xs font-mono font-semibold text-text-muted uppercase mb-1.5">
-                Current Tools / Stack <span className="text-text-muted font-normal lowercase">(Optional)</span>
-              </label>
-              <input
-                id="scope-current-stack"
-                name="currentStack"
-                type="text"
-                value={scopeFormData.currentStack}
-                onChange={handleScopeFormChange}
-                placeholder="e.g., PostgreSQL, HubSpot, n8n, Stripe, custom APIs"
-                className="w-full px-3.5 py-2.5 rounded-lg bg-bg-surface border border-border-main text-text-main placeholder:text-text-muted text-xs focus:outline-none focus:border-accent-main focus:ring-1 focus:ring-accent-main transition-all"
-              />
-            </div>
-
-            {/* Bottleneck / Scope Description */}
-            <div>
-              <label htmlFor="scope-description" className="block text-xs font-mono font-semibold text-text-muted uppercase mb-1.5">
-                Workflow / Failure Point <span className="text-rose-400">*</span>
-              </label>
-              <textarea
-                id="scope-description"
-                name="scopeDescription"
-                required
-                rows={3}
-                value={scopeFormData.scopeDescription}
-                onChange={handleScopeFormChange}
-                placeholder="Describe your current manual process, tools used, and ideal automation or architecture outcome..."
-                className="w-full px-3.5 py-2.5 rounded-lg bg-bg-surface border border-border-main text-text-main placeholder:text-text-muted text-xs focus:outline-none focus:border-accent-main focus:ring-1 focus:ring-accent-main transition-all resize-none"
-              />
-            </div>
-
-            {/* Submit Button & Confidentiality Note */}
-            <div className="pt-2 space-y-2">
-              <Button
-                type="submit"
-                variant="primary"
-                size="md"
-                className="w-full justify-center"
-                disabled={scopeFormState === "submitting"}
-                icon={Send}
-              >
-                {scopeFormState === "submitting" ? "Processing Intake..." : "Deliver Architecture Blueprint (24h) →"}
-              </Button>
-              <p className="text-[11px] font-mono text-text-muted text-center flex items-center justify-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-accent-main" />
-                <span>Strict confidentiality · Zero spam</span>
-              </p>
-            </div>
-          </form>
-        )}
-      </Modal>
     </section>
   );
 };

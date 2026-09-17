@@ -31,10 +31,8 @@ export const Button = ({
       "bg-white/5 backdrop-blur-md text-text-main border border-border-main hover:border-accent-main/50 hover:bg-accent-subtle/50",
     ghost:
       "bg-transparent text-text-secondary hover:text-text-main hover:bg-bg-elevated/70 backdrop-blur-xs",
-    glass:
-      "bg-white/10 dark:bg-white/10 backdrop-blur-xl text-text-main border border-white/20 hover:bg-white/20 hover:border-white/30 shadow-[0_4px_20px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.18),inset_0_1px_1px_rgba(255,255,255,0.45)]",
-    glassPrimary:
-      "bg-accent-main/80 dark:bg-accent-main/75 backdrop-blur-xl text-white border border-white/25 hover:bg-accent-main/95 hover:border-white/40 shadow-[0_4px_20px_rgba(37,99,235,0.25),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:shadow-[0_6px_25px_rgba(37,99,235,0.35),inset_0_1px_1px_rgba(255,255,255,0.5)]",
+    glass: "liquid-glass-btn text-text-main",
+    glassPrimary: "liquid-glass-primary text-white",
     glassAccent:
       "bg-accent-main/15 dark:bg-accent-main/20 backdrop-blur-xl text-accent-main border border-accent-main/35 hover:bg-accent-main/25 hover:border-accent-main/50 shadow-[0_4px_16px_rgba(59,130,246,0.12),inset_0_1px_1px_rgba(255,255,255,0.3)]",
   };
