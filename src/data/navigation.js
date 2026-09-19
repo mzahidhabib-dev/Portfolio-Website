@@ -19,6 +19,6 @@ export const SOCIAL_LINKS = {
   linkedin: "https://www.linkedin.com/in/mzahidhabib-engineer",
   email: "mailto:zahid@mzahidh.com",
   rawEmail: "zahid@mzahidh.com",
-  booking: "https://cal.com/mzahidhabib",
-  calCom: "https://cal.com/mzahidhabib",
+  booking: "#contact",
+  calCom: "#contact",
 };
