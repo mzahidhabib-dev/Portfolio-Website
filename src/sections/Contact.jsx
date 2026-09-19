@@ -121,12 +121,15 @@ export const Contact = () => {
               </div>
 
               <div className="p-3.5 rounded-lg bg-bg-elevated border border-border-subtle flex items-center justify-between text-xs font-mono text-text-muted">
-                <span>DIRECT EMAIL:</span>
+                <span className="flex items-center gap-1.5">
+                  <Mail className="w-3.5 h-3.5 text-accent-main" /> DIRECT EMAIL:
+                </span>
                 <a
                   href={SOCIAL_LINKS.email}
-                  className="text-accent-main hover:underline font-medium"
+                  className="text-accent-main hover:underline font-medium flex items-center gap-1"
+                  title="Click to send email to zahid@mzahidh.com"
                 >
-                  mzahidhabib.dev@gmail.com
+                  {SOCIAL_LINKS.rawEmail}
                 </a>
               </div>
             </Card>

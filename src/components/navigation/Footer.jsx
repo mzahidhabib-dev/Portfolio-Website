@@ -76,11 +76,12 @@ export const Footer = () => {
               </a>
               <a
                 href={SOCIAL_LINKS.email}
-                aria-label="Send Professional Email"
-                className="px-3 py-2 rounded-lg bg-bg-elevated text-text-secondary hover:text-text-main border border-border-main hover:border-accent-main/40 transition-all flex items-center gap-2 text-xs font-mono"
+                aria-label="Send Professional Email to zahid@mzahidh.com"
+                title="Send Email to zahid@mzahidh.com"
+                className="px-3 py-2 rounded-lg bg-bg-elevated text-text-secondary hover:text-text-main border border-border-main hover:border-accent-main/40 transition-all flex items-center gap-2 text-xs font-mono group"
               >
-                <Mail className="w-4 h-4 text-accent-main" />
-                <span>Email</span>
+                <Mail className="w-4 h-4 text-accent-main group-hover:scale-110 transition-transform" />
+                <span>zahid@mzahidh.com</span>
               </a>
               <a
                 href="#contact"
