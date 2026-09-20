@@ -95,18 +95,19 @@ body {
   min-height: 100vh;
 }
 
-/* iOS Liquid Glass Engine */
+/* iOS Liquid Glass Engine - Synchronized with Theme Tokens */
 .liquid-glass-btn {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.02) 100%);
+  background-color: var(--bg-elevated);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(0, 0, 0, 0.05) 100%);
   backdrop-filter: blur(20px) saturate(190%);
   -webkit-backdrop-filter: blur(20px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: var(--text-main);
+  border: 1px solid var(--border-main);
   box-shadow: 
-    0 8px 32px 0 rgba(0, 0, 0, 0.2),
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.55),
-    inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.15);
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.45);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -125,12 +126,12 @@ body {
 }
 
 .liquid-glass-btn:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.12) 50%, rgba(255, 255, 255, 0.05) 100%);
-  border-color: rgba(255, 255, 255, 0.45);
+  background-color: var(--bg-surface);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.10) 50%, rgba(0, 0, 0, 0.02) 100%);
+  border-color: var(--border-subtle);
   box-shadow: 
-    0 12px 36px 0 rgba(0, 0, 0, 0.28),
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.75),
-    inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.25);
+    0 6px 20px rgba(0, 0, 0, 0.12),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65);
   transform: translateY(-1px);
 }
 
@@ -138,19 +139,20 @@ body {
   transform: scale(0.97) translateY(0);
 }
 
-/* Primary Sapphire Blue iOS Liquid Glass */
+/* Primary Theme-Aligned Glossy Button */
 .liquid-glass-primary {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.90) 0%, rgba(37, 99, 235, 0.78) 50%, rgba(29, 78, 216, 0.88) 100%);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  background-color: var(--accent-main);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(0, 0, 0, 0.1) 100%);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.30);
   box-shadow: 
-    0 8px 30px rgba(37, 99, 235, 0.38),
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65),
-    inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.25);
+    0 4px 20px rgba(37, 99, 235, 0.25),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.15);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -161,7 +163,7 @@ body {
   left: 0;
   right: 0;
   height: 48%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.02) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.02) 100%);
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   pointer-events: none;
@@ -169,16 +171,18 @@ body {
 }
 
 .liquid-glass-primary:hover {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.98) 0%, rgba(37, 99, 235, 0.88) 50%, rgba(29, 78, 216, 0.95) 100%);
-  border-color: rgba(255, 255, 255, 0.55);
+  background-color: var(--accent-hover);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.10) 50%, rgba(0, 0, 0, 0.05) 100%);
+  border-color: rgba(255, 255, 255, 0.45);
   box-shadow: 
-    0 12px 38px rgba(37, 99, 235, 0.52),
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.85),
-    inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.3);
+    0 6px 25px rgba(37, 99, 235, 0.35),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.2);
   transform: translateY(-1px);
 }
 
 .liquid-glass-primary:active {
   transform: scale(0.97) translateY(0);
 }
+
 

@@ -91,20 +91,20 @@ export const Diagnostic = () => {
   const activeBottleneckObject = bottlenecks.find((b) => b.id === selectedBottleneck);
 
   const handleRequestBlueprint = () => {
-    const scopeText = `[Selected Blueprint: ${activeBlueprint.name} | Volume: ${selectedVolume} | Focus: ${activeBottleneckObject?.title || "Custom"}]`;
+    const category = activeBlueprint.name;
+    const volume = selectedVolume;
+    const bottleneck = activeBottleneckObject?.title || "Custom";
+    const formattedSummary = `[SELECTED_BLUEPRINT: ${category} | WORKFLOW_VOLUME: ${volume} | FOCUS: ${bottleneck}]`;
 
-    // Emit event to prefill scope in Contact section
+    // Emit custom event to prefill scope in Contact section
     window.dispatchEvent(
       new CustomEvent("prefill-contact-scope", {
-        detail: { scopeText },
+        detail: { scopeText: formattedSummary },
       })
     );
 
-    // Smooth scroll to #contact section
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
-    }
+    // Smooth scroll down to #contact section
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (

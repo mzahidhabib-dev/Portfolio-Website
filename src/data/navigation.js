@@ -17,7 +17,8 @@ export const TELEMETRY_STATUS = {
 export const SOCIAL_LINKS = {
   github: "https://github.com/mzahidhabib-dev",
   linkedin: "https://www.linkedin.com/in/mzahidhabib-engineer",
-  email: "mailto:mzahidhabib.dev@gmail.com",
-  booking: "https://cal.com/mzahidhabib",
-  calCom: "https://cal.com/mzahidhabib",
+  email: "mailto:zahid@mzahidh.com",
+  rawEmail: "zahid@mzahidh.com",
+  booking: "#contact",
+  calCom: "#contact",
 };

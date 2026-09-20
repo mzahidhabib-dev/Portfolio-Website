@@ -109,14 +109,14 @@ export const Hero = () => {
                 <div className="flex items-center justify-between p-2.5 rounded-lg bg-bg-elevated border border-border-subtle">
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                    <span>Pre-Call Executive Briefing</span>
+                    <span>Automated Executive Briefing</span>
                   </div>
                   <span className="text-emerald-500 font-semibold">GENERATED</span>
                 </div>
 
                 <div className="p-3 rounded-lg bg-accent-subtle/50 border border-accent-main/20 text-text-main space-y-1">
                   <div className="flex items-center justify-between font-semibold text-accent-main">
-                    <span>PIPELINE RESULT: MEETINGS BOOKED</span>
+                    <span>PIPELINE RESULT: INTENT QUALIFIED</span>
                     <span>$0.0420 SPEND</span>
                   </div>
                   <p className="text-[11px] text-text-muted">
